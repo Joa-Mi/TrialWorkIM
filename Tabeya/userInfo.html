@@ -718,46 +718,71 @@
     }
 
     function displayProducts(products) {
-        const container = document.getElementById('product-groups');
-        container.innerHTML = '';
+    const container = document.getElementById('product-groups');
+    container.innerHTML = '';
 
-        if (products.length === 0) {
-            container.innerHTML = '<p class="no-products">No products in this category.</p>';
-            return;
-        }
-
-        products.forEach(product => {
-            const qty = selectedProducts[product.ProductID]?.quantity || 0;
-            const price = parseFloat(product.Price);
-            const name = product.ProductName || 'Product';
-            const desc = product.Description || 'Delicious dish from Tabeya';
-
-            const card = document.createElement('div');
-            card.className = 'product-card';
-
-            card.innerHTML = `
-                <div class="product-image">
-                    <span class="placeholder-icon">🍽️</span>
-                </div>
-                <div class="product-info">
-                    <div class="product-name">${name}</div>
-                    <div class="product-description">${desc}</div>
-                    <div class="product-price">₱${price.toFixed(2)}</div>
-                    <div class="quantity-controls">
-                        <button class="qty-btn minus" data-id="${product.ProductID}" data-price="${price}" data-name="${encodeURIComponent(name)}">−</button>
-                        <span class="qty-display ${qty > 0 ? 'has-qty' : ''}" id="qty-${product.ProductID}">${qty}</span>
-                        <button class="qty-btn plus" data-id="${product.ProductID}" data-price="${price}" data-name="${encodeURIComponent(name)}">+</button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-
-        container.querySelectorAll('.qty-btn').forEach(btn => {
-            btn.addEventListener('click', handleQtyClick);
-        });
+    if (products.length === 0) {
+        container.innerHTML = '<p class="no-products">No products in this category.</p>';
+        return;
     }
 
+    products.forEach(product => {
+        const qty = selectedProducts[product.ProductID]?.quantity || 0;
+        const price = parseFloat(product.Price) || 0;
+        const name = product.ProductName || 'Product';
+        const desc = product.Description || 'Delicious dish from Tabeya';
+        const imagePath = product.Image && product.Image.trim() ? product.Image : 'Photo/default.jpg';
+
+        // Availability logic
+        const isAvailable = product.IngredientAvailable !== false;
+        const reason = product.AvailabilityReason || '';
+        const isLowStock = reason === 'Low stock';
+
+        let badgeClass = 'available';
+        let badgeIcon = '✓';        // green check
+        let badgeText = 'Available';
+        if (!isAvailable) {
+            badgeClass = 'unavailable';
+            badgeIcon = '✗';        // red cross
+            badgeText = 'Unavailable';
+        } else if (isLowStock) {
+            badgeClass = 'low-stock';
+            badgeIcon = 'Warning';     // warning sign
+            badgeText = 'Low Stock';
+        }
+
+        const card = document.createElement('div');
+        card.className = `product-card ${!isAvailable ? 'unavailable' : ''}`;
+
+        card.innerHTML = `
+            <div class="product-image">
+                <img src="${imagePath}" alt="${name}" onerror="this.src='Photo/default.jpg'; this.style.border='3px solid red'">
+                <div class="availability-label ${badgeClass}">
+                    <span class="availability-icon">${badgeIcon}</span>
+                    <span>${badgeText}</span>
+                </div>
+            </div>
+            <div class="product-info">
+                <div class="product-name">${name}</div>
+                <div class="product-description">${desc}</div>
+                <div class="product-price">₱${price.toFixed(2)}</div>
+                <div class="quantity-controls">
+                    <button class="qty-btn minus" data-id="${product.ProductID}" data-price="${price}" 
+                            data-name="${encodeURIComponent(name)}" ${!isAvailable ? 'disabled' : ''}>−</button>
+                    <span class="qty-display ${qty > 0 ? 'has-qty' : ''}" id="qty-${product.ProductID}">${qty}</span>
+                    <button class="qty-btn plus" data-id="${product.ProductID}" data-price="${price}" 
+                            data-name="${encodeURIComponent(name)}" ${!isAvailable ? 'disabled' : ''}>+</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+
+    // Attach click events only to enabled buttons
+    container.querySelectorAll('.qty-btn:not([disabled])').forEach(btn => {
+        btn.addEventListener('click', handleQtyClick);
+    });
+}
     function handleQtyClick(e) {
         const btn = e.currentTarget;
         const id = btn.dataset.id;
@@ -1024,80 +1049,7 @@
             return window.location.href = 'CaterReservation.html';
         }
     });
-    function displayProducts(products) {
-    const container = document.getElementById('product-groups');
-    container.innerHTML = '';
-
-    if (products.length === 0) {
-        container.innerHTML = '<p class="no-products">No products in this category.</p>';
-        return;
-    }
-
-    products.forEach(product => {
-        const qty = selectedProducts[product.ProductID]?.quantity || 0;
-        const price = parseFloat(product.Price);
-        const name = product.ProductName || 'Product';
-        const desc = product.Description || 'Delicious dish from Tabeya';
-        
-        // Check ingredient availability
-        const isAvailable = product.IngredientAvailable !== false;
-        const availabilityReason = product.AvailabilityReason || 'In stock';
-        const isLowStock = availabilityReason === 'Low stock';
-        
-        // Determine availability class and label
-        let availabilityClass = 'available';
-        let availabilityIcon = '✓';
-        let availabilityText = 'Available';
-        
-        if (!isAvailable) {
-            availabilityClass = 'unavailable';
-            availabilityIcon = '✗';
-            availabilityText = 'Unavailable';
-        } else if (isLowStock) {
-            availabilityClass = 'low-stock';
-            availabilityIcon = '⚠';
-            availabilityText = 'Low Stock';
-        }
-
-        const card = document.createElement('div');
-        card.className = `product-card ${!isAvailable ? 'unavailable' : ''}`;
-
-        card.innerHTML = `
-            <div class="product-image">
-                <span class="placeholder-icon">🍽️</span>
-                <div class="availability-label ${availabilityClass}">
-                    <span class="availability-icon">${availabilityIcon}</span>
-                    <span>${availabilityText}</span>
-                </div>
-            </div>
-            <div class="product-info">
-                <div class="product-name">${name}</div>
-                <div class="product-description">${desc}</div>
-                <div class="product-price">₱${price.toFixed(2)}</div>
-                <div class="quantity-controls">
-                    <button class="qty-btn minus" 
-                        data-id="${product.ProductID}" 
-                        data-price="${price}" 
-                        data-name="${encodeURIComponent(name)}"
-                        ${!isAvailable ? 'disabled' : ''}>−</button>
-                    <span class="qty-display ${qty > 0 ? 'has-qty' : ''}" 
-                        id="qty-${product.ProductID}">${qty}</span>
-                    <button class="qty-btn plus" 
-                        data-id="${product.ProductID}" 
-                        data-price="${price}" 
-                        data-name="${encodeURIComponent(name)}"
-                        ${!isAvailable ? 'disabled' : ''}>+</button>
-                </div>
-            </div>
-        `;
-        container.appendChild(card);
-    });
-
-    // Only attach event listeners to enabled buttons
-    container.querySelectorAll('.qty-btn:not([disabled])').forEach(btn => {
-        btn.addEventListener('click', handleQtyClick);
-    });
-}
+    
     </script>
 </body>
 </html>
