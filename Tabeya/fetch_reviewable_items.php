@@ -1,23 +1,40 @@
 <?php
 /**
- * Fetch Reviewable Items for Customer
+ * Fetch Reviewable Items for Customer - Fixed Version
  * Returns orders and reservations that can be reviewed
  */
 
+// Clean output and disable HTML errors
+ob_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/error.log');
+
 header('Content-Type: application/json; charset=utf-8');
+
+// Custom error handlers
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    error_log("PHP Error: $errstr in " . basename($errfile) . " line $errline");
+    if (ob_get_level()) ob_clean();
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "An error occurred"]);
+    exit;
+});
+
 require_once(__DIR__ . '/api/config/db_config.php');
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         http_response_code(405);
-        die(json_encode(["success" => false, "message" => "GET required"]));
+        throw new Exception("GET required");
     }
 
     $customerId = isset($_GET['customer_id']) ? intval($_GET['customer_id']) : 0;
 
     if ($customerId <= 0) {
         http_response_code(400);
-        die(json_encode(["success" => false, "message" => "Invalid customer ID"]));
+        throw new Exception("Invalid customer ID");
     }
 
     // Fetch completed orders with items
@@ -50,7 +67,7 @@ try {
             'date' => $row['OrderDate'],
             'total' => floatval($row['TotalAmount']),
             'status' => $row['OrderStatus'],
-            'items' => $row['Items'],
+            'items' => $row['Items'] ?? 'No items',
             'hasReview' => intval($row['HasReview']) === 1
         ];
     }
@@ -87,13 +104,20 @@ try {
             'date' => $row['EventDate'],
             'eventType' => $row['EventType'],
             'guests' => intval($row['NumberOfGuests']),
-            'items' => $row['Items'],
-            'total' => floatval($row['TotalAmount']),
+            'items' => $row['Items'] ?? 'No items',
+            'total' => floatval($row['TotalAmount'] ?? 0),
             'hasReview' => intval($row['HasReview']) === 1
         ];
     }
     $stmt->close();
+    
+    // ✅ Close connection before output
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
 
+    // Clean output and send response
+    if (ob_get_level()) ob_clean();
     echo json_encode([
         'success' => true,
         'orders' => $orders,
@@ -101,6 +125,12 @@ try {
     ]);
 
 } catch (Exception $e) {
+    // Close connection on error
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
+    
+    if (ob_get_level()) ob_clean();
     http_response_code(500);
     echo json_encode([
         'success' => false,
@@ -108,5 +138,5 @@ try {
     ]);
 }
 
-$conn->close();
+ob_end_flush();
 ?>

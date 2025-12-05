@@ -21,3 +21,215 @@
 [24-Nov-2025 15:20:12 Europe/Berlin] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\fetch_products.php on line 27
 [24-Nov-2025 15:20:12 Europe/Berlin] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\fetch_products.php on line 27
 [24-Nov-2025 15:20:21 Europe/Berlin] PHP Warning:  mysqli::__construct(): Error while reading greeting packet. PID=16124 in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\fetch_products.php on line 27
+[05-Dec-2025 17:54:23 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:54:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:55:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:55:27 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:55:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:56:09 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:57:02 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('192.168.110.105', 'friend', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:57:44 Europe/Berlin] PHP Warning:  mysqli::__construct(): php_network_getaddresses: getaddrinfo for locahost failed: No such host is known.  in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:57:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: php_network_getaddresses: getaddrinfo for locahost failed: No such host is known.  in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:28
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(28): mysqli->__construct('locahost', 'root', Object(SensitiveParameterValue), 'tabeya_system', '3306')
+#1 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\Review.php(3): require_once('D:\\XAMPP\\htdocs...')
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 28
+[05-Dec-2025 17:58:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:08 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:10 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:11 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:11 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:11 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:12 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:12 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:12 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:14 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:14 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:14 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 17:59:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 18:00:35 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php:66
+Stack trace:
+#0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php(66): mysqli->close()
+#1 [internal function]: closeConnection()
+#2 {main}
+  thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\api\config\db_config.php on line 66
+[05-Dec-2025 18:07:16 Europe/Berlin] SUCCESS: New reservation #11 created for customer 2

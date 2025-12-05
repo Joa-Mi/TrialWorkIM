@@ -9,18 +9,18 @@
 
 // Enable error reporting for development (turn off in production)
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0); // ✅ CHANGED: Set to 0 to prevent HTML errors in JSON responses
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/../../error.log');
 
 // ----------------------
 // Database credentials
 // ----------------------
-define('DB_HOST', '192.168.110.105');   // Admin PC IP (main server)
-define('DB_USER', 'friend');            // LAN MySQL user
-define('DB_PASS', '');                  // Password
-define('DB_NAME', 'tabeya_system');     // Database name
-define('DB_PORT', '3306');                // MySQL port
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'tabeya_system');
+define('DB_PORT', '3306');
 
 // ----------------------
 // Create connection
@@ -57,17 +57,7 @@ if ($conn->connect_error) {
 // ----------------------
 $conn->set_charset("utf8mb4");
 
-// ----------------------
-// Helper function to close connection
-// ----------------------
-function closeConnection() {
-    global $conn;
-    if ($conn) {
-        $conn->close();
-    }
-}
-
-// Register shutdown function to close connection automatically
-register_shutdown_function('closeConnection');
+// ✅ REMOVED: The problematic closeConnection function and register_shutdown_function
+// Let PHP handle connection cleanup automatically or close manually where needed
 
 ?>

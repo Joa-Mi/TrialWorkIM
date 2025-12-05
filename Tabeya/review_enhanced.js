@@ -219,11 +219,19 @@ function selectReservation(reservationId) {
 }
 
 function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    try {
+        const date = new Date(dateStr);
+        // Check if date is valid
+        if (isNaN(date.getTime())) {
+            return dateStr; // Return original if invalid
+        }
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    } catch (error) {
+        console.error('Date formatting error:', error);
+        return dateStr;
+    }
 }
-
 function capitalizeFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }

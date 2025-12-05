@@ -1,28 +1,32 @@
 <?php
 /**
- * Submit Customer Feedback - Enhanced Version
+ * Submit Customer Feedback - Fixed Version
  * Supports Order/Reservation/General reviews with anonymous option
  */
 
+// Clean output buffer and disable error display
 ob_start();
 error_reporting(E_ALL);
-ini_set('display_errors', 0);
+ini_set('display_errors', 0); // ✅ Prevent HTML errors in JSON
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error.log');
 
 header('Content-Type: application/json; charset=utf-8');
 
+// Custom error handlers that return clean JSON
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    error_log("PHP Error: $errstr in " . basename($errfile) . " line $errline");
     if (ob_get_level()) ob_clean();
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => "Error: $errstr in " . basename($errfile) . " line $errline"]);
+    echo json_encode(['success' => false, 'message' => "An error occurred. Please try again."]);
     exit;
 });
 
 set_exception_handler(function($e) {
+    error_log("Exception: " . $e->getMessage());
     if (ob_get_level()) ob_clean();
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Exception: ' . $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'An error occurred. Please try again.']);
     exit;
 });
 
@@ -141,6 +145,11 @@ try {
 
     $feedbackId = $stmt->insert_id;
     $stmt->close();
+    
+    // ✅ Manually close connection before output
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
 
     // Success response
     if (ob_get_level()) ob_clean();
@@ -153,6 +162,11 @@ try {
     ]);
 
 } catch (Exception $e) {
+    // Close connection on error
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
+    
     if (ob_get_level()) ob_clean();
     http_response_code(400);
     echo json_encode([
@@ -161,6 +175,5 @@ try {
     ]);
 }
 
-$conn->close();
 ob_end_flush();
 ?>
