@@ -1,51 +1,45 @@
 <?php
 session_start();
+require_once(__DIR__ . '/api/config/db_config.php');
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tabeya_system";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$conn->set_charset("utf8mb4");
-
-// Fetch approved reviews with customer names
+// Fetch approved feedback with customer names (using new customer_feedback table)
 $sql = "SELECT 
-            cr.ReviewID,
-            cr.CustomerID,
-            CONCAT(c.FirstName, ' ', LEFT(c.LastName, 1), '.') AS DisplayName,
-            cr.OverallRating,
-            cr.FoodTasteRating,
-            cr.PortionSizeRating,
-            cr.CustomerServiceRating,
-            cr.AmbienceRating,
-            cr.CleanlinessRating,
-            cr.FoodTasteComment,
-            cr.PortionSizeComment,
-            cr.CustomerServiceComment,
-            cr.AmbienceComment,
-            cr.CleanlinessComment,
-            cr.GeneralComment,
-            cr.CreatedDate
-        FROM customer_reviews cr
-        JOIN customers c ON cr.CustomerID = c.CustomerID
-        WHERE cr.Status = 'Approved'
-        ORDER BY cr.CreatedDate DESC";
+            cf.FeedbackID,
+            cf.CustomerID,
+            CASE 
+                WHEN cf.IsAnonymous = 1 THEN 'Anonymous'
+                ELSE CONCAT(c.FirstName, ' ', LEFT(c.LastName, 1), '.')
+            END AS DisplayName,
+            cf.FeedbackType,
+            cf.OrderID,
+            cf.ReservationID,
+            cf.OverallRating,
+            cf.FoodTasteRating,
+            cf.PortionSizeRating,
+            cf.ServiceRating,
+            cf.AmbienceRating,
+            cf.CleanlinessRating,
+            cf.FoodTasteComment,
+            cf.PortionSizeComment,
+            cf.ServiceComment,
+            cf.AmbienceComment,
+            cf.CleanlinessComment,
+            cf.ReviewMessage,
+            cf.CreatedDate
+        FROM customer_feedback cf
+        JOIN customers c ON cf.CustomerID = c.CustomerID
+        WHERE cf.Status = 'Approved'
+        ORDER BY cf.CreatedDate DESC";
 
 $reviews_result = $conn->query($sql);
 
-// Get statistics
+// Get statistics from customer_feedback table
 $stats_sql = "SELECT 
     COUNT(*) as total,
     COALESCE(ROUND(AVG(OverallRating), 1), 0) as avg_rating,
     COALESCE(ROUND(AVG(FoodTasteRating), 1), 0) as avg_food,
     COALESCE(ROUND(AVG(PortionSizeRating), 1), 0) as avg_portion,
-    COALESCE(ROUND(AVG(CustomerServiceRating), 1), 0) as avg_service,
+    COALESCE(ROUND(AVG(ServiceRating), 1), 0) as avg_service,
     COALESCE(ROUND(AVG(AmbienceRating), 1), 0) as avg_ambience,
     COALESCE(ROUND(AVG(CleanlinessRating), 1), 0) as avg_cleanliness,
     SUM(CASE WHEN OverallRating = 5 THEN 1 ELSE 0 END) as five_star,
@@ -53,7 +47,7 @@ $stats_sql = "SELECT
     SUM(CASE WHEN OverallRating = 3 THEN 1 ELSE 0 END) as three_star,
     SUM(CASE WHEN OverallRating = 2 THEN 1 ELSE 0 END) as two_star,
     SUM(CASE WHEN OverallRating = 1 THEN 1 ELSE 0 END) as one_star
-FROM customer_reviews WHERE Status = 'Approved'";
+FROM customer_feedback WHERE Status = 'Approved'";
 
 $stats_result = $conn->query($stats_sql);
 $stats = $stats_result->fetch_assoc();
@@ -66,7 +60,6 @@ $stats = $stats_result->fetch_assoc();
     <title>Customer Reviews - Tabeya</title>
     <link rel="stylesheet" href="CSS/ReviewDesign.css">
     <style>
-        /* Cart modal styles copied from Menu/Cater for consistent behavior */
         .cart-icon {
             cursor: pointer;
             display: inline-flex;
@@ -95,11 +88,13 @@ $stats = $stats_result->fetch_assoc();
         }
         .modal-content {
             background-color: #fff;
-            margin: 8% auto;
+            margin: 3% auto;
             padding: 20px;
             border-radius: 10px;
             width: 90%;
-            max-width: 500px;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
         }
         .modal-content .close-btn {
@@ -109,60 +104,116 @@ $stats = $stats_result->fetch_assoc();
             font-size: 24px;
             cursor: pointer;
         }
-        #cart-items-list .cart-item {
+        
+        /* Feedback Type Selection */
+        .feedback-type-selection {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .feedback-type-selection h4 {
+            color: #bc1823;
+            margin-bottom: 15px;
+        }
+        .feedback-type-buttons {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
             gap: 10px;
+            flex-wrap: wrap;
         }
-        #cart-items-list .cart-item:last-child {
-            border-bottom: none;
-        }
-        .cart-item-info {
-            flex: 1;
-        }
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .cart-item-controls button {
-            width: 28px;
-            height: 28px;
-            border: none;
-            border-radius: 4px;
-            background: #f0f0f0;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .cart-item-subtotal {
-            min-width: 70px;
-            text-align: right;
-            font-weight: 600;
-        }
-        .cart-summary {
-            margin-top: 15px;
-            font-size: 18px;
-            display: flex;
-            justify-content: space-between;
-        }
-        #checkout-btn {
-            width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            border: none;
-            background: #bc1823;
-            color: #fff;
-            font-weight: 600;
+        .feedback-type-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
             border-radius: 6px;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
         }
-        #checkout-btn:disabled {
-            background: #ccc;
+        .feedback-type-btn:hover {
+            border-color: #bc1823;
+            background: #fff5f5;
+        }
+        .feedback-type-btn.active {
+            border-color: #bc1823;
+            background: #bc1823;
+            color: white;
+        }
+        
+        /* Reviewable Items Selection */
+        .reviewable-items-section {
+            display: none;
+            margin: 15px 0;
+        }
+        .reviewable-items-section.show {
+            display: block;
+        }
+        .reviewable-item {
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .reviewable-item:hover {
+            border-color: #bc1823;
+            background: #fff5f5;
+        }
+        .reviewable-item.selected {
+            border-color: #bc1823;
+            background: #ffe8e8;
+        }
+        .reviewable-item.reviewed {
+            opacity: 0.6;
             cursor: not-allowed;
+            background: #f5f5f5;
         }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .item-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #4caf50;
+            color: white;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .item-badge.reviewed {
+            background: #999;
+        }
+        .item-products {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Anonymous Option */
+        .anonymous-option {
+            margin: 15px 0;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .anonymous-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .anonymous-option label {
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+        }
+        
         .review-form-section { margin-bottom: 20px; }
         .review-form-section h4 { color: #bc1823; margin-bottom: 10px; font-size: 14px; }
         .rating-category { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-radius: 8px; }
@@ -180,25 +231,27 @@ $stats = $stats_result->fetch_assoc();
         .user-logged-in .user-name { font-weight: 600; color: #2e7d32; }
         .login-required { background: #fff3e0; padding: 20px; border-radius: 8px; text-align: center; }
         .login-required a { color: #bc1823; font-weight: 600; }
-        .review-detail-ratings { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-        .review-detail-ratings .rating-badge { background: #f5f5f5; padding: 4px 8px; border-radius: 12px; font-size: 11px; display: flex; align-items: center; gap: 4px; }
-        .review-detail-ratings .rating-badge .stars { color: #FFD700; }
-        .category-breakdown { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px; }
-        .category-breakdown h4 { color: #bc1823; margin-bottom: 15px; }
-        .category-bar { display: flex; align-items: center; margin-bottom: 10px; }
-        .category-bar .cat-label { min-width: 120px; font-size: 12px; color: #666; }
-        .category-bar .cat-bar { flex: 1; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; margin: 0 10px; }
-        .category-bar .cat-bar-fill { height: 100%; background: linear-gradient(90deg, #bc1823, #e74c3c); border-radius: 4px; }
-        .category-bar .cat-value { min-width: 30px; font-size: 12px; font-weight: 600; color: #333; }
-        .review-comments-accordion { margin-top: 10px; }
-        .accordion-toggle { background: none; border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; color: #666; }
-        .accordion-toggle:hover { background: #f5f5f5; }
-        .accordion-content { display: none; margin-top: 10px; padding: 10px; background: #fafafa; border-radius: 8px; }
-        .accordion-content.show { display: block; }
-        .comment-item { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #eee; }
-        .comment-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .comment-item .comment-label { font-size: 11px; color: #bc1823; font-weight: 600; }
-        .comment-item .comment-text { font-size: 13px; color: #444; margin-top: 2px; }
+        
+        .feedback-type-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .feedback-type-badge.order {
+            background: #2196F3;
+            color: white;
+        }
+        .feedback-type-badge.reservation {
+            background: #9C27B0;
+            color: white;
+        }
+        .feedback-type-badge.general {
+            background: #607D8B;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -294,7 +347,13 @@ $stats = $stats_result->fetch_assoc();
                     while ($review = $reviews_result->fetch_assoc()) {
                         echo '<div class="user-review">';
                         echo '<div class="review-header">';
-                        echo '<h3>' . htmlspecialchars($review['DisplayName']) . '</h3>';
+                        echo '<h3>' . htmlspecialchars($review['DisplayName']);
+                        
+                        // Show feedback type badge
+                        $badgeClass = strtolower($review['FeedbackType']);
+                        echo '<span class="feedback-type-badge ' . $badgeClass . '">' . $review['FeedbackType'] . '</span>';
+                        
+                        echo '</h3>';
                         echo '<div class="review-rating">';
                         for ($i = 1; $i <= 5; $i++) {
                             $active = ($i <= $review['OverallRating']) ? 'active' : '';
@@ -306,7 +365,7 @@ $stats = $stats_result->fetch_assoc();
                         $cats = [
                             '🍽️ Food' => $review['FoodTasteRating'],
                             '📏 Portion' => $review['PortionSizeRating'],
-                            '👨‍💼 Service' => $review['CustomerServiceRating'],
+                            '👨‍💼 Service' => $review['ServiceRating'],
                             '✨ Ambience' => $review['AmbienceRating'],
                             '🧹 Clean' => $review['CleanlinessRating']
                         ];
@@ -317,12 +376,12 @@ $stats = $stats_result->fetch_assoc();
                         }
                         echo '</div>';
                         
-                        if ($review['GeneralComment']) {
-                            echo '<p>' . htmlspecialchars($review['GeneralComment']) . '</p>';
+                        if ($review['ReviewMessage']) {
+                            echo '<p>' . htmlspecialchars($review['ReviewMessage']) . '</p>';
                         }
                         
                         $hasComments = $review['FoodTasteComment'] || $review['PortionSizeComment'] || 
-                                      $review['CustomerServiceComment'] || $review['AmbienceComment'] || 
+                                      $review['ServiceComment'] || $review['AmbienceComment'] || 
                                       $review['CleanlinessComment'];
                         
                         if ($hasComments) {
@@ -333,7 +392,7 @@ $stats = $stats_result->fetch_assoc();
                             $comments = [
                                 'Food Taste' => $review['FoodTasteComment'],
                                 'Portion Size' => $review['PortionSizeComment'],
-                                'Customer Service' => $review['CustomerServiceComment'],
+                                'Customer Service' => $review['ServiceComment'],
                                 'Ambience' => $review['AmbienceComment'],
                                 'Cleanliness' => $review['CleanlinessComment']
                             ];
@@ -360,11 +419,41 @@ $stats = $stats_result->fetch_assoc();
         </div>
     </section>
 
-    <div id="review-modal" class="review-modal">
-        <div class="review-modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+    <!-- Review Modal -->
+    <div id="review-modal" class="review-modal modal">
+        <div class="review-modal-content modal-content">
+            <span class="close-btn" id="close-modal-btn">&times;</span>
             <h2>Share Your Experience</h2>
             
             <div id="user-info-section"></div>
+            
+            <!-- Feedback Type Selection -->
+            <div class="feedback-type-selection">
+                <h4>What would you like to review?</h4>
+                <div class="feedback-type-buttons">
+                    <button class="feedback-type-btn" data-type="Order">📦 Recent Order</button>
+                    <button class="feedback-type-btn" data-type="Reservation">🎉 Recent Reservation</button>
+                    <button class="feedback-type-btn active" data-type="General">⭐ General Experience</button>
+                </div>
+            </div>
+            
+            <!-- Reviewable Orders Section -->
+            <div class="reviewable-items-section" id="orders-section">
+                <h4>Select an order to review:</h4>
+                <div id="orders-list"></div>
+            </div>
+            
+            <!-- Reviewable Reservations Section -->
+            <div class="reviewable-items-section" id="reservations-section">
+                <h4>Select a reservation to review:</h4>
+                <div id="reservations-list"></div>
+            </div>
+            
+            <!-- Anonymous Option -->
+            <div class="anonymous-option">
+                <input type="checkbox" id="anonymous-checkbox">
+                <label for="anonymous-checkbox">Post anonymously</label>
+            </div>
             
             <div class="overall-rating-input">
                 <h3>Overall Rating</h3>
@@ -443,27 +532,27 @@ $stats = $stats_result->fetch_assoc();
 
             <div class="review-form-section">
                 <h4>General Comments (Optional)</h4>
-                <textarea class="comment-field" id="general-comment" placeholder="Share your overall experience..." style="min-height: 80px;"></textarea>
+                <textarea class="comment-field" id="review-message" placeholder="Share your overall experience..." style="min-height: 80px;"></textarea>
             </div>
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button id="submit-review-btn" class="submit-review-btn" style="flex: 1;">Submit Review</button>
-                <button id="close-modal-btn" style="flex: 0 0 100px;">Cancel</button>
             </div>
         </div>
     </div>
 
-<div id="cart-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>Your Cart</h2>
-        <div id="cart-items-list"></div>
-        <div class="cart-summary">
-            <strong>Total: ₱<span id="cart-total">0.00</span></strong>
+    <!-- Cart Modal (kept from original) -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items-list"></div>
+            <div class="cart-summary">
+                <strong>Total: ₱<span id="cart-total">0.00</span></strong>
+            </div>
+            <button id="checkout-btn">Proceed to Checkout</button>
         </div>
-        <button id="checkout-btn">Proceed to Checkout</button>
     </div>
-</div>
 
     <footer>
         <div class="contact-section">
@@ -490,338 +579,7 @@ $stats = $stats_result->fetch_assoc();
         </div>
     </footer>
 
-    <script>
-    // ============================================================
-// FIXED REVIEW SUBMISSION JAVASCRIPT
-// Add this to the <script> section in Review.php
-// ============================================================
-
-const USER_KEY = 'currentUser';
-const CART_KEY = 'tabeyaCart';
-const LOGIN_PAGE = 'Login.html';
-const PROFILE_PAGE = 'Profile.html';
-const CHECKOUT_PAGE = 'Checkout.html';
-const REVIEW_PAGE = 'Review.php';
-
-let currentUser = null;
-let ratings = { overall: 0, food: 0, portion: 0, service: 0, ambience: 0, cleanliness: 0 };
-let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-
-function getCurrentUser() {
-    try { 
-        return JSON.parse(localStorage.getItem(USER_KEY)); 
-    } catch (e) { 
-        return null; 
-    }
-}
-
-function updateAccountLink() {
-    const link = document.getElementById('account-link');
-    const user = getCurrentUser();
-    if (!link) return;
-
-    if (user) {
-        const userName = user.name ? user.name.split(' ')[0].toUpperCase() : (user.firstName || 'PROFILE').toUpperCase();
-        link.textContent = userName;
-        link.href = PROFILE_PAGE;
-    } else {
-        link.textContent = 'PROFILE';
-        link.href = LOGIN_PAGE;
-    }
-}
-
-function toggleAccordion(btn) {
-    const content = btn.nextElementSibling;
-    content.classList.toggle('show');
-    btn.textContent = content.classList.contains('show') ? 'Hide detailed feedback ▲' : 'View detailed feedback ▼';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    currentUser = getCurrentUser();
-    updateAccountLink();
-    updateCartDisplay();
-    setupRatingStars();
-    setupModalHandlers();
-    setupCartListeners();
-});
-
-function setupRatingStars() {
-    // Overall rating
-    document.querySelectorAll('#overall-stars .rating-star').forEach(star => {
-        star.addEventListener('click', function() {
-            ratings.overall = parseInt(this.dataset.rating);
-            updateStars('#overall-stars .rating-star', ratings.overall);
-        });
-    });
-
-    // Category ratings
-    document.querySelectorAll('.category-stars').forEach(container => {
-        const category = container.dataset.category;
-        container.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('click', function() {
-                ratings[category] = parseInt(this.dataset.rating);
-                updateStars(`.category-stars[data-category="${category}"] .star`, ratings[category]);
-            });
-        });
-    });
-}
-
-function updateStars(selector, rating) {
-    document.querySelectorAll(selector).forEach((star, idx) => {
-        star.classList.toggle('active', idx < rating);
-    });
-}
-
-function setupModalHandlers() {
-    const modal = document.getElementById('review-modal');
-    const writeBtn = document.getElementById('write-review-btn');
-    const closeBtn = document.getElementById('close-modal-btn');
-    const submitBtn = document.getElementById('submit-review-btn');
-    const userSection = document.getElementById('user-info-section');
-
-    writeBtn.addEventListener('click', () => {
-        currentUser = getCurrentUser();
-        if (!currentUser) {
-            userSection.innerHTML = `<div class="login-required">
-                <p>Please <a href="Login.html">log in</a> to write a review.</p>
-            </div>`;
-            submitBtn.disabled = true;
-        } else {
-            userSection.innerHTML = `<div class="user-logged-in">
-                <span class="user-icon">👤</span>
-                <span>Reviewing as: <span class="user-name">${currentUser.firstName} ${currentUser.lastName}</span></span>
-            </div>`;
-            submitBtn.disabled = false;
-        }
-        modal.style.display = 'block';
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-        resetForm();
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            resetForm();
-        }
-    });
-
-    submitBtn.addEventListener('click', submitReview);
-}
-
-function resetForm() {
-    ratings = { overall: 0, food: 0, portion: 0, service: 0, ambience: 0, cleanliness: 0 };
-    document.querySelectorAll('.rating-star, .category-stars .star').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.comment-field').forEach(f => f.value = '');
-}
-
-async function submitReview() {
-    if (!currentUser) {
-        alert('Please log in to submit a review.');
-        return;
-    }
-
-    if (ratings.overall === 0) {
-        alert('Please provide an overall rating.');
-        return;
-    }
-
-    // ✅ FIXED: Build data object with proper field names matching PHP
-    const data = {
-        customerId: currentUser.customerId,
-        overallRating: ratings.overall,
-        foodRating: ratings.food || 0,        // ✅ Send 0 instead of undefined
-        portionRating: ratings.portion || 0,
-        serviceRating: ratings.service || 0,
-        ambienceRating: ratings.ambience || 0,
-        cleanlinessRating: ratings.cleanliness || 0,
-        foodComment: document.getElementById('food-comment')?.value.trim() || '',
-        portionComment: document.getElementById('portion-comment')?.value.trim() || '',
-        serviceComment: document.getElementById('service-comment')?.value.trim() || '',
-        ambienceComment: document.getElementById('ambience-comment')?.value.trim() || '',
-        cleanlinessComment: document.getElementById('cleanliness-comment')?.value.trim() || '',
-        generalComment: document.getElementById('general-comment')?.value.trim() || ''
-    };
-
-    console.log('Submitting review data:', data);
-
-    try {
-        const response = await fetch('submit_customer_review.php', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify(data)
-        });
-
-        console.log('Response status:', response.status);
-
-        // ✅ FIXED: Get text first, then parse
-        const text = await response.text();
-        console.log('Raw response:', text);
-
-        let result;
-        try {
-            result = JSON.parse(text);
-        } catch (parseError) {
-            console.error('JSON parse error:', parseError);
-            throw new Error('Server returned invalid JSON: ' + text.substring(0, 200));
-        }
-
-        if (result.success) {
-            alert('✅ ' + result.message);
-            document.getElementById('review-modal').style.display = 'none';
-            resetForm();
-            // Optionally reload the page to show the new review (if approved)
-            // window.location.reload();
-        } else {
-            alert('❌ Error: ' + result.message);
-        }
-
-    } catch (error) {
-        console.error('Submit error:', error);
-        alert('An error occurred while submitting your review. Please try again.\n\nError: ' + error.message);
-    }
-}
-
-function ensureUserLoggedIn(redirectTarget = REVIEW_PAGE) {
-    if (!getCurrentUser()) {
-        alert("You must log in to perform this action.");
-        localStorage.setItem('redirectAfterLogin', redirectTarget);
-        window.location.href = LOGIN_PAGE;
-        return false;
-    }
-    return true;
-}
-
-function updateCartDisplay() {
-    const cartCountElement = document.getElementById('cart-item-count');
-    if (!cartCountElement) return;
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountElement.textContent = totalItems;
-}
-
-function calculateCartTotal() {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
-}
-
-function renderCartModal() {
-    const listContainer = document.getElementById('cart-items-list');
-    const totalElement = document.getElementById('cart-total');
-    const checkoutBtn = document.getElementById('checkout-btn');
-    if (!listContainer || !totalElement || !checkoutBtn) return;
-
-    let itemsHtml = '';
-
-    if (cart.length === 0) {
-        itemsHtml = '<p style="text-align: center; color: #777; padding: 15px 0;">Your cart is empty.</p>';
-        checkoutBtn.disabled = true;
-    } else {
-        cart.forEach(item => {
-            const itemTotal = (item.price * item.quantity).toFixed(2);
-            const safeId = String(item.id).replace(/'/g, "\\'");
-
-            itemsHtml += `
-                <div class="cart-item">
-                    <div class="cart-item-info"> 
-                        <span class="cart-item-name">${item.name}</span>
-                        <span class="cart-item-price">₱${parseFloat(item.price).toFixed(2)} ea.</span>
-                    </div>
-                    
-                    <div class="cart-item-controls">
-                        <button onclick="window.updateCartItemQuantity('${safeId}', -1)">-</button>
-                        <span class="cart-item-quantity">${item.quantity}</span> 
-                        <button onclick="window.updateCartItemQuantity('${safeId}', 1)">+</button>
-                    </div>
-                    
-                    <span class="cart-item-subtotal">₱${itemTotal}</span> 
-                </div>
-            `;
-        });
-        checkoutBtn.disabled = false;
-    }
-
-    listContainer.innerHTML = itemsHtml;
-    listContainer.querySelectorAll('img').forEach(img => img.remove());
-    totalElement.textContent = calculateCartTotal();
-}
-
-function saveCart() {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    updateCartDisplay();
-    const modal = document.getElementById('cart-modal');
-    if (modal && modal.style.display === 'block') {
-        renderCartModal();
-    }
-}
-
-window.updateCartItemQuantity = function(itemId, change) {
-    if (!ensureUserLoggedIn()) {
-        return;
-    }
-
-    const itemIndex = cart.findIndex(item => String(item.id) === String(itemId));
-    if (itemIndex > -1) {
-        cart[itemIndex].quantity += change;
-        if (cart[itemIndex].quantity <= 0) {
-            cart.splice(itemIndex, 1);
-        }
-        saveCart();
-    }
-};
-
-function setupCartListeners() {
-    const modal = document.getElementById('cart-modal');
-    const viewCartBtn = document.getElementById('view-cart-btn');
-    const closeBtn = document.querySelector('#cart-modal .close-btn');
-    const checkoutBtn = document.getElementById('checkout-btn');
-
-    if (viewCartBtn && modal) {
-        const openCart = () => {
-            if (!ensureUserLoggedIn(REVIEW_PAGE)) {
-                return;
-            }
-            renderCartModal();
-            modal.style.display = 'block';
-        };
-
-        viewCartBtn.addEventListener('click', openCart);
-        viewCartBtn.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                openCart();
-            }
-        });
-    }
-
-    if (closeBtn && modal) {
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-    }
-
-    window.addEventListener('click', (event) => {
-        if (modal && event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-            if (ensureUserLoggedIn(CHECKOUT_PAGE)) {
-                window.location.href = CHECKOUT_PAGE;
-            }
-        });
-    }
-}
-    </script>
+    <script src="review_enhanced.js"></script>
 </body>
 </html>
 <?php $conn->close(); ?>

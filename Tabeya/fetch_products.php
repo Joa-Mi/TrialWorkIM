@@ -1,37 +1,26 @@
 <?php
 /**
- * FETCH PRODUCTS
- * Returns all available products from the database
+ * FETCH PRODUCTS WITH INGREDIENT AVAILABILITY CHECK
+ * Returns products with real-time inventory status
  */
 
-// START OUTPUT BUFFERING IMMEDIATELY
 ob_start();
-
-// Configure error handling - NO OUTPUT BEFORE JSON
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error.log');
 
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tabeya_system";
-
-// Set JSON header FIRST
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    // Connect to database
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli("localhost", "root", "", "tabeya_system");
 
     if ($conn->connect_error) {
         http_response_code(500);
-        echo json_encode(array(
+        echo json_encode([
             "success" => false,
-            "message" => "Database connection failed: " . $conn->connect_error
-        ));
+            "message" => "Database connection failed"
+        ]);
         ob_end_flush();
         exit;
     }
@@ -39,60 +28,105 @@ try {
     $conn->set_charset("utf8mb4");
 
     // ============================================================
-    // FETCH ALL AVAILABLE PRODUCTS
-    // Fixed: Removed SpicyLevel column that doesn't exist
+    // FETCH PRODUCTS WITH INGREDIENT AVAILABILITY
     // ============================================================
 
-    $sql = "SELECT ProductID, ProductName, Category, Description, Price, 
-                   Availability, ServingSize, Image, PopularityTag
-            FROM products 
-            WHERE Availability = 'Available'
-            ORDER BY Category ASC, ProductID ASC";
+    $sql = "SELECT 
+                p.ProductID, 
+                p.ProductName, 
+                p.Category, 
+                p.Description, 
+                p.Price, 
+                p.Availability, 
+                p.ServingSize, 
+                p.Image, 
+                p.PopularityTag,
+                -- Check if all ingredients are available
+                (SELECT COUNT(DISTINCT pi.IngredientID)
+                 FROM product_ingredients pi
+                 WHERE pi.ProductID = p.ProductID) as TotalIngredients,
+                (SELECT COUNT(DISTINCT pi.IngredientID)
+                 FROM product_ingredients pi
+                 LEFT JOIN (
+                     SELECT IngredientID, SUM(StockQuantity) as TotalStock
+                     FROM inventory_batches
+                     WHERE BatchStatus = 'Active'
+                     GROUP BY IngredientID
+                 ) ib ON pi.IngredientID = ib.IngredientID
+                 WHERE pi.ProductID = p.ProductID
+                 AND COALESCE(ib.TotalStock, 0) >= pi.QuantityUsed
+                ) as AvailableIngredients
+            FROM products p
+            WHERE p.Availability = 'Available'
+            ORDER BY p.Category ASC, p.ProductID ASC";
 
     $result = $conn->query($sql);
 
     if (!$result) {
         http_response_code(500);
-        echo json_encode(array(
+        echo json_encode([
             "success" => false,
             "message" => "Query failed: " . $conn->error
-        ));
+        ]);
         $conn->close();
         ob_end_flush();
         exit;
     }
 
-    $products = array();
+    $products = [];
 
     while ($row = $result->fetch_assoc()) {
         $row['ProductID'] = intval($row['ProductID']);
         $row['Price'] = floatval($row['Price']);
+        
+        $totalIngredients = intval($row['TotalIngredients']);
+        $availableIngredients = intval($row['AvailableIngredients']);
+        
+        // Determine ingredient availability
+        if ($totalIngredients == 0) {
+            // No ingredients defined (drinks, etc.)
+            $row['IngredientAvailable'] = true;
+            $row['AvailabilityReason'] = 'No ingredients required';
+        } elseif ($availableIngredients == $totalIngredients) {
+            // All ingredients available
+            $row['IngredientAvailable'] = true;
+            $row['AvailabilityReason'] = 'All ingredients in stock';
+        } elseif ($availableIngredients > 0) {
+            // Some ingredients available
+            $row['IngredientAvailable'] = true;
+            $row['AvailabilityReason'] = 'Low stock';
+        } else {
+            // No ingredients available
+            $row['IngredientAvailable'] = false;
+            $row['AvailabilityReason'] = 'Out of stock';
+        }
+        
+        // Remove internal counts from response
+        unset($row['TotalIngredients']);
+        unset($row['AvailableIngredients']);
+        
         $products[] = $row;
     }
 
     $conn->close();
 
-    // ============================================================
-    // SUCCESS RESPONSE
-    // ============================================================
-
     http_response_code(200);
-    echo json_encode(array(
+    echo json_encode([
         "success" => true,
         "message" => "Products fetched successfully",
         "count" => count($products),
         "products" => $products
-    ));
+    ]);
 
     ob_end_flush();
     exit;
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(array(
+    echo json_encode([
         "success" => false,
-        "message" => "Error fetching products: " . $e->getMessage()
-    ));
+        "message" => "Error: " . $e->getMessage()
+    ]);
     ob_end_flush();
     exit;
 }

@@ -41,3 +41,7 @@ Stack trace:
 [22-Nov-2025 15:37:24 Europe/Berlin] SUCCESS: New reservation #5 created for customer 8
 [22-Nov-2025 17:17:36 Europe/Berlin] SUCCESS: New reservation #6 created for customer 8
 [23-Nov-2025 05:32:49 Europe/Berlin] SUCCESS: New reservation #7 created for customer 8
+[28-Nov-2025 16:16:27 Europe/Berlin] SUCCESS: New reservation #8 created for customer 2
+[28-Nov-2025 16:32:29 Europe/Berlin] SUCCESS: New reservation #0 created for customer 2
+[30-Nov-2025 17:11:01 Europe/Berlin] SUCCESS: New reservation #0 created for customer 2
+[30-Nov-2025 17:21:33 Europe/Berlin] SUCCESS: New reservation #0 created for customer 2
