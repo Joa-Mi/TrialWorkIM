@@ -9,7 +9,7 @@
 
 // Enable error reporting for development (turn off in production)
 error_reporting(E_ALL);
-ini_set('display_errors', 0); // ✅ CHANGED: Set to 0 to prevent HTML errors in JSON responses
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/../../error.log');
 
@@ -19,7 +19,7 @@ ini_set('error_log', __DIR__ . '/../../error.log');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'tabeya_system');
+define('DB_NAME', 'ateatoni');
 define('DB_PORT', '3306');
 
 // ----------------------
@@ -56,8 +56,5 @@ if ($conn->connect_error) {
 // Set charset
 // ----------------------
 $conn->set_charset("utf8mb4");
-
-// ✅ REMOVED: The problematic closeConnection function and register_shutdown_function
-// Let PHP handle connection cleanup automatically or close manually where needed
 
 ?>

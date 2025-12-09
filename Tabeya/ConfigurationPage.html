@@ -364,12 +364,8 @@
                 if (result.success) {
                     showMessage('✓ Configuration saved successfully! Redirecting...', 'success');
                     
-                    // Store configuration completion flag
-                    localStorage.setItem('dbConfigured', 'true');
-                    
-                    // Redirect to home page after 2 seconds
+                    // Redirect to index.php (which will then redirect to Home.html)
                     setTimeout(() => {
-                        // Check if using PHP routing
                         window.location.href = 'index.php';
                     }, 2000);
                 } else {
@@ -388,13 +384,6 @@
             statusMessage.textContent = message;
             statusMessage.className = 'status-message ' + type;
         }
-
-        // Check if already configured
-        window.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('dbConfigured') === 'true') {
-                showMessage('ℹ️ Database already configured. Update settings if needed.', 'info');
-            }
-        });
     </script>
 </body>
 </html>
