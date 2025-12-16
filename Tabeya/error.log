@@ -267,3 +267,5 @@ Stack trace:
 #0 D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\get_user_orders_count.php(10): mysqli->__construct(NULL, NULL, Object(SensitiveParameterValue), NULL)
 #1 {main}
   thrown in D:\XAMPP\htdocs\TrialWeb\TrialWorkIM\Tabeya\get_user_orders_count.php on line 10
+[15-Dec-2025 16:58:14 Europe/Berlin] SUCCESS: New reservation #1264 created for customer 2
+[15-Dec-2025 17:16:06 Europe/Berlin] SUCCESS: New reservation #1265 created for customer 2

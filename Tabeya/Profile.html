@@ -37,7 +37,7 @@
         </div>
         
         <div class="profile-actions">
-            <button class="action-btn" onclick="window.location.href='OrderHistory.html'">View Order History</button>
+            <button class="action-btn" onclick="window.location.href='ViewOrder.html'">View Order</button>
             <button class="action-btn" onclick="window.location.href='EditProfile.html'">Edit Profile</button>
             <button class="logout-btn" id="logout-btn">Logout</button>
         </div>
@@ -120,9 +120,10 @@
         }
 
         // --- Fetch Total Orders from Server ---
-        async function fetchUserTotalOrders(userId) {
+        async function fetchUserTotalOrders(customerId) {
             try {
-                const response = await fetch(`get_user_orders_count.php?user_id=${userId}`);
+                // Backend expects `customer_id` (aligned with get_user_orders.php)
+                const response = await fetch(`get_user_orders_count.php?customer_id=${customerId}`);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -150,9 +151,10 @@
             document.getElementById('profile-contact').textContent = contactNumber;
             
             // Fetch actual total orders from server
-            const userId = user.id || user.userId || user.CustomerID;
-            if (userId) {
-                const totalOrders = await fetchUserTotalOrders(userId);
+            // Prefer `customerId` which is how we store it at login/signup
+            const customerId = user.customerId || user.CustomerID || user.id || user.userId;
+            if (customerId) {
+                const totalOrders = await fetchUserTotalOrders(customerId);
                 document.getElementById('profile-orders-count').textContent = totalOrders;
             } else {
                 document.getElementById('profile-orders-count').textContent = '0';
