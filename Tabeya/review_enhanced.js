@@ -20,10 +20,10 @@ let reviewableOrders = [];
 let reviewableReservations = [];
 
 function getCurrentUser() {
-    try { 
-        return JSON.parse(localStorage.getItem(USER_KEY)); 
-    } catch (e) { 
-        return null; 
+    try {
+        return JSON.parse(localStorage.getItem(USER_KEY));
+    } catch (e) {
+        return null;
     }
 }
 
@@ -43,16 +43,16 @@ function updateAccountLink() {
 }
 
 // ✅ FIXED: Make toggleAccordion globally accessible
-window.toggleAccordion = function(btn) {
+window.toggleAccordion = function (btn) {
     const content = btn.nextElementSibling;
     const isShowing = content.classList.contains('show');
-    
+
     if (isShowing) {
         content.classList.remove('show');
-        btn.textContent = 'View detailed feedback ▼';
+        btn.innerHTML = 'View detailed feedback ⌵';
     } else {
         content.classList.add('show');
-        btn.textContent = 'Hide detailed feedback ▲';
+        btn.innerHTML = 'Hide detailed feedback ⌃';
     }
 };
 
@@ -64,25 +64,52 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalHandlers();
     setupCartListeners();
     setupFeedbackTypeButtons();
+    setupSorting();
 });
+
+function setupSorting() {
+    const sortSelect = document.querySelector('.sort-select');
+    if (!sortSelect) return;
+
+    sortSelect.addEventListener('change', function () {
+        const value = this.value;
+        const container = document.getElementById('reviews-container');
+        const cards = Array.from(container.querySelectorAll('.review-card'));
+
+        cards.sort((a, b) => {
+            const dateA = new Date(a.dataset.date);
+            const dateB = new Date(b.dataset.date);
+
+            if (value === 'recent') {
+                return dateB - dateA;
+            } else {
+                return dateA - dateB;
+            }
+        });
+
+        // Clear and re-append in new order
+        container.innerHTML = '';
+        cards.forEach(card => container.appendChild(card));
+    });
+}
 
 function setupFeedbackTypeButtons() {
     const buttons = document.querySelectorAll('.feedback-type-btn');
-    
+
     buttons.forEach(btn => {
-        btn.addEventListener('click', async function() {
+        btn.addEventListener('click', async function () {
             // Remove active class from all buttons
             buttons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            
+
             selectedFeedbackType = this.dataset.type;
             selectedOrderId = null;
             selectedReservationId = null;
-            
+
             // Hide all sections first
             document.getElementById('orders-section').classList.remove('show');
             document.getElementById('reservations-section').classList.remove('show');
-            
+
             // Show relevant section
             if (selectedFeedbackType === 'Order') {
                 await loadReviewableOrders();
@@ -98,28 +125,28 @@ function setupFeedbackTypeButtons() {
 async function loadReviewableOrders() {
     const ordersList = document.getElementById('orders-list');
     ordersList.innerHTML = '<p style="text-align:center; color:#999;">Loading orders...</p>';
-    
+
     try {
         const response = await fetch(`fetch_reviewable_items.php?customer_id=${currentUser.customerId}`);
         const data = await response.json();
-        
+
         if (!data.success) {
             throw new Error(data.message);
         }
-        
+
         reviewableOrders = data.orders;
-        
+
         if (reviewableOrders.length === 0) {
             ordersList.innerHTML = '<p style="text-align:center; color:#999;">No recent orders found.</p>';
             return;
         }
-        
+
         ordersList.innerHTML = '';
         reviewableOrders.forEach(order => {
             const div = document.createElement('div');
             div.className = 'reviewable-item' + (order.hasReview ? ' reviewed' : '');
             div.dataset.orderId = order.id;
-            
+
             div.innerHTML = `
                 <div class="item-header">
                     <strong>Order #${order.id}</strong>
@@ -129,16 +156,16 @@ async function loadReviewableOrders() {
                 <div>Total: ₱${parseFloat(order.total).toFixed(2)}</div>
                 <div class="item-products">Items: ${order.items}</div>
             `;
-            
+
             if (!order.hasReview) {
-                div.addEventListener('click', function() {
+                div.addEventListener('click', function () {
                     selectOrder(order.id);
                 });
             }
-            
+
             ordersList.appendChild(div);
         });
-        
+
     } catch (error) {
         console.error('Error loading orders:', error);
         ordersList.innerHTML = '<p style="text-align:center; color:red;">Failed to load orders.</p>';
@@ -148,28 +175,28 @@ async function loadReviewableOrders() {
 async function loadReviewableReservations() {
     const reservationsList = document.getElementById('reservations-list');
     reservationsList.innerHTML = '<p style="text-align:center; color:#999;">Loading reservations...</p>';
-    
+
     try {
         const response = await fetch(`fetch_reviewable_items.php?customer_id=${currentUser.customerId}`);
         const data = await response.json();
-        
+
         if (!data.success) {
             throw new Error(data.message);
         }
-        
+
         reviewableReservations = data.reservations;
-        
+
         if (reviewableReservations.length === 0) {
             reservationsList.innerHTML = '<p style="text-align:center; color:#999;">No recent reservations found.</p>';
             return;
         }
-        
+
         reservationsList.innerHTML = '';
         reviewableReservations.forEach(reservation => {
             const div = document.createElement('div');
             div.className = 'reviewable-item' + (reservation.hasReview ? ' reviewed' : '');
             div.dataset.reservationId = reservation.id;
-            
+
             div.innerHTML = `
                 <div class="item-header">
                     <strong>Reservation #${reservation.id}</strong>
@@ -180,16 +207,16 @@ async function loadReviewableReservations() {
                 <div>Total: ₱${parseFloat(reservation.total).toFixed(2)}</div>
                 <div class="item-products">Items: ${reservation.items}</div>
             `;
-            
+
             if (!reservation.hasReview) {
-                div.addEventListener('click', function() {
+                div.addEventListener('click', function () {
                     selectReservation(reservation.id);
                 });
             }
-            
+
             reservationsList.appendChild(div);
         });
-        
+
     } catch (error) {
         console.error('Error loading reservations:', error);
         reservationsList.innerHTML = '<p style="text-align:center; color:red;">Failed to load reservations.</p>';
@@ -201,7 +228,7 @@ function selectOrder(orderId) {
     document.querySelectorAll('#orders-list .reviewable-item').forEach(item => {
         item.classList.remove('selected');
     });
-    
+
     // Select this order
     const selectedItem = document.querySelector(`#orders-list .reviewable-item[data-order-id="${orderId}"]`);
     if (selectedItem) {
@@ -216,7 +243,7 @@ function selectReservation(reservationId) {
     document.querySelectorAll('#reservations-list .reviewable-item').forEach(item => {
         item.classList.remove('selected');
     });
-    
+
     // Select this reservation
     const selectedItem = document.querySelector(`#reservations-list .reviewable-item[data-reservation-id="${reservationId}"]`);
     if (selectedItem) {
@@ -248,7 +275,7 @@ function capitalizeFirst(str) {
 function setupRatingStars() {
     // Overall rating
     document.querySelectorAll('#overall-stars .rating-star').forEach(star => {
-        star.addEventListener('click', function() {
+        star.addEventListener('click', function () {
             ratings.overall = parseInt(this.dataset.rating);
             updateStars('#overall-stars .rating-star', ratings.overall);
         });
@@ -258,10 +285,10 @@ function setupRatingStars() {
     document.querySelectorAll('.category-stars').forEach(container => {
         const category = container.dataset.category;
         container.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('click', function() {
+            star.addEventListener('click', function () {
                 const rating = parseInt(this.dataset.rating);
                 ratings[category] = rating;
-                
+
                 // Update stars in this category
                 const categoryStars = container.querySelectorAll('.star');
                 categoryStars.forEach((s, idx) => {
@@ -330,19 +357,19 @@ function resetForm() {
     document.querySelectorAll('.rating-star, .category-stars .star').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.comment-field').forEach(f => f.value = '');
     document.getElementById('anonymous-checkbox').checked = false;
-    
+
     // Reset feedback type to General
     selectedFeedbackType = 'General';
     selectedOrderId = null;
     selectedReservationId = null;
-    
+
     document.querySelectorAll('.feedback-type-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.dataset.type === 'General') {
             btn.classList.add('active');
         }
     });
-    
+
     document.getElementById('orders-section').classList.remove('show');
     document.getElementById('reservations-section').classList.remove('show');
 }
@@ -363,7 +390,7 @@ async function submitFeedback() {
         alert('Please select an order to review, or choose "General Experience".');
         return;
     }
-    
+
     if (selectedFeedbackType === 'Reservation' && !selectedReservationId) {
         alert('Please select a reservation to review, or choose "General Experience".');
         return;
@@ -396,7 +423,7 @@ async function submitFeedback() {
     try {
         const response = await fetch('submit_customer_feedback.php', {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
             },
@@ -500,7 +527,7 @@ function saveCart() {
     }
 }
 
-window.updateCartItemQuantity = function(itemId, change) {
+window.updateCartItemQuantity = function (itemId, change) {
     if (!ensureUserLoggedIn()) {
         return;
     }

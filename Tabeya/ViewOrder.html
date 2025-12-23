@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Order - Tabeya</title>
-    <link rel="stylesheet" href="CSS/Profile.css"> 
-    
+    <link rel="stylesheet" href="CSS/Profile.css">
+
     <style>
         /* ========================================= */
         /* GLOBAL LAYOUT FIXES (FOOTER) */
@@ -17,15 +18,15 @@
             background-color: var(--background-page);
         }
 
-        .view-order-section { 
+        .view-order-section {
             flex-grow: 1;
             width: 95%;
             max-width: 1400px;
-            margin: 140px auto 60px; 
-            padding: 50px; 
-            background-color: var(--background-card); 
+            margin: 140px auto 60px;
+            padding: 50px;
+            background-color: var(--background-card);
             border-radius: 18px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12); 
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
         }
 
         .view-order-toolbar {
@@ -108,10 +109,10 @@
         /* ========================================= */
         /* ORDER/RESERVATION CARDS - ULTRA-CLEAN DESIGN */
         /* ========================================= */
-        
+
         :root {
             --tabeya-red: #BC1823;
-            --background-page: #f9f9f9; 
+            --background-page: #f9f9f9;
             --background-card: #ffffff;
             --border-light: #ececec;
             --text-dark: #333333;
@@ -126,7 +127,7 @@
 
         /* Title Styling */
         .view-order-section h2 {
-            color: var(--tabeya-red); 
+            color: var(--tabeya-red);
             text-align: center;
             margin-bottom: 40px;
             font-size: 2.5em;
@@ -141,15 +142,15 @@
 
         /* Card Design */
         .order-card,
-        .reservation-card { 
-            border: 1px solid var(--border-light); 
+        .reservation-card {
+            border: 1px solid var(--border-light);
             border-radius: 16px;
-            padding: 28px 30px; 
-            background-color: var(--background-card); 
+            padding: 28px 30px;
+            background-color: var(--background-card);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
+
         .order-card:hover,
         .reservation-card:hover {
             transform: translateY(-6px);
@@ -157,18 +158,18 @@
         }
 
         /* Card Header */
-        .card-header { 
-            display: flex; 
-            justify-content: space-between; 
+        .card-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding-bottom: 15px; 
-            margin-bottom: 15px; 
-            border-bottom: 1px solid var(--border-light); 
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-light);
         }
-        
-        .card-header h4 { 
-            color: var(--text-dark); 
-            margin: 0; 
+
+        .card-header h4 {
+            color: var(--text-dark);
+            margin: 0;
             font-size: 1.4em;
             font-weight: 700;
         }
@@ -181,20 +182,20 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-        
+
         .status-pending {
             background-color: var(--status-pending-bg);
-            color: var(--status-pending-text); 
+            color: var(--status-pending-text);
         }
-        
+
         .status-confirmed {
             background-color: var(--status-confirmed-bg);
-            color: var(--status-confirmed-text); 
+            color: var(--status-confirmed-text);
         }
-        
+
         .status-cancelled {
             background-color: var(--status-cancelled-bg);
-            color: var(--status-cancelled-text); 
+            color: var(--status-cancelled-text);
         }
 
         /* Card Details Grid */
@@ -206,26 +207,26 @@
             padding-bottom: 18px;
             border-bottom: 1px dashed var(--border-light);
         }
-        
+
         .detail-label {
             font-weight: 500;
             color: var(--text-medium);
             text-align: left;
             padding-right: 10px;
         }
-        
+
         .detail-value {
             font-weight: 600;
             color: var(--text-dark);
             text-align: right;
         }
-        
+
         .detail-value.total {
             color: var(--tabeya-red);
             font-size: 1.1em;
             font-weight: 700;
         }
-        
+
         /* Item List */
         .item-list-title {
             font-weight: 700;
@@ -233,13 +234,13 @@
             margin-bottom: 10px;
             display: block;
         }
-        
-        .item-list { 
-            list-style-type: none; 
-            padding-left: 0; 
+
+        .item-list {
+            list-style-type: none;
+            padding-left: 0;
             margin: 0;
         }
-        
+
         .item-list li {
             font-size: 0.95em;
             padding: 5px 0;
@@ -248,34 +249,34 @@
             justify-content: space-between;
             border-bottom: 1px dotted var(--border-light);
         }
-        
+
         .item-list li:last-child {
-             border-bottom: none;
+            border-bottom: none;
         }
-        
+
         /* Empty State */
-        .empty-state { 
-            text-align: center; 
-            color: var(--text-medium); 
-            padding: 80px 20px; 
-            border: 2px dashed var(--border-light); 
-            background-color: var(--background-page); 
-            border-radius: 8px; 
-            margin-top: 30px; 
+        .empty-state {
+            text-align: center;
+            color: var(--text-medium);
+            padding: 80px 20px;
+            border: 2px dashed var(--border-light);
+            background-color: var(--background-page);
+            border-radius: 8px;
+            margin-top: 30px;
         }
-        
+
         #order-list-container .empty-state,
         #reservation-list-container .empty-state {
             grid-column: 1 / -1;
             margin-top: 0;
         }
-        
+
         .empty-state a {
             color: var(--tabeya-red);
             font-weight: bold;
             text-decoration: none;
         }
-        
+
         .empty-state a:hover {
             text-decoration: underline;
         }
@@ -299,8 +300,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive Design */
@@ -341,23 +347,26 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <div class="logo">
             <img src="Photo/Tabeya Name.png" alt="Tabeya Logo">
         </div>
-        <nav>
+        <nav class="nav-links">
             <a href="Home.html">HOME</a>
-            <a href="Menu.html">MENU</a> 
+            <a href="Menu.html">MENU</a>
             <a href="#" id="cater-reservation-link">CATER RESERVATION</a>
             <a href="Review.php">TESTIMONY</a>
             <a href="About.html">ABOUT</a>
-            <a href="Profile.html" id="account-link">PROFILE</a> 
+        </nav>
+        <div class="header-right">
+            <a href="Profile.html" id="account-link">PROFILE</a>
             <div class="cart-icon" id="view-cart-btn">
                 🛒 <span class="cart-count" id="cart-item-count">0</span>
             </div>
-        </nav>
+        </div>
     </header>
 
     <div class="view-order-section">
@@ -368,9 +377,9 @@
                 <button class="tab-btn" data-tab="reservations">Reservations</button>
             </div>
         </div>
-        
+
         <h2>View Order</h2>
-        
+
         <!-- Orders Tab -->
         <div id="orders-tab" class="tab-content active">
             <div id="order-list-container">
@@ -430,7 +439,8 @@
                             <img src="Photo/Facebook.png" alt="Facebook Icon" class="icon">
                             <div>
                                 <strong>Connect to us</strong>
-                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank" class="no-underline">Tabeya, VCN</a>
+                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank"
+                                    class="no-underline">Tabeya, VCN</a>
                             </div>
                         </div>
                     </div>
@@ -444,9 +454,9 @@
         const USER_KEY = 'currentUser';
         const LOGIN_PAGE = 'Login.html';
         const PROFILE_PAGE = 'Profile.html';
-        const CATER_RESERVATION_PAGE = 'CaterReservation.html'; 
-        
-        let cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; 
+        const CATER_RESERVATION_PAGE = 'CaterReservation.html';
+
+        let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
         let currentUser = null;
 
         // --- Core Login Check ---
@@ -455,7 +465,7 @@
         }
 
         function checkLoginAndProceed(redirectTarget) {
-            if (!checkUserLoginStatus()) { 
+            if (!checkUserLoginStatus()) {
                 alert("You must log in to view your orders.");
                 if (redirectTarget) {
                     localStorage.setItem('redirectAfterLogin', redirectTarget);
@@ -469,10 +479,10 @@
         function updateAccountLink() {
             const accountLink = document.getElementById('account-link');
             const user = JSON.parse(localStorage.getItem(USER_KEY));
-            
+
             if (user) {
                 accountLink.textContent = user.name.split(' ')[0].toUpperCase();
-                accountLink.href = PROFILE_PAGE; 
+                accountLink.href = PROFILE_PAGE;
             } else {
                 accountLink.textContent = 'PROFILE';
                 accountLink.href = LOGIN_PAGE;
@@ -490,7 +500,7 @@
             updateCartDisplay();
             renderCartModal();
         }
-        
+
         function updateCartItemQuantity(itemId, change) {
             const itemIndex = cart.findIndex(item => item.id === itemId);
             if (itemIndex > -1) {
@@ -501,7 +511,7 @@
             }
             saveCart();
         }
-        
+
         function calculateTotal() {
             return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
         }
@@ -537,15 +547,15 @@
                 });
                 checkoutBtn.disabled = false;
             }
-            
+
             listContainer.innerHTML = itemsHtml;
             totalElement.textContent = calculateTotal();
             setupCartModalListeners();
         }
-        
+
         function setupCartModalListeners() {
             const modal = document.getElementById('cart-modal');
-            
+
             modal.querySelectorAll('.qty-minus').forEach(button => {
                 button.addEventListener('click', (e) => {
                     updateCartItemQuantity(e.target.getAttribute('data-id'), -1);
@@ -557,34 +567,34 @@
                     updateCartItemQuantity(e.target.getAttribute('data-id'), 1);
                 });
             });
-            
+
             document.getElementById('checkout-btn').addEventListener('click', () => {
                 if (checkLoginAndProceed('Checkout.html')) {
                     window.location.href = 'Checkout.html';
                 }
             });
         }
-        
+
         function setupGlobalListeners() {
             const modal = document.getElementById('cart-modal');
             const btn = document.getElementById("view-cart-btn");
             const span = document.getElementsByClassName("close-btn")[0];
 
-            btn.onclick = function() {
+            btn.onclick = function () {
                 renderCartModal();
                 modal.style.display = "block";
             }
 
-            span.onclick = function() {
+            span.onclick = function () {
                 modal.style.display = "none";
             }
 
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             }
-            
+
             document.getElementById('cater-reservation-link').addEventListener('click', (e) => {
                 e.preventDefault();
                 checkLoginAndProceed(CATER_RESERVATION_PAGE);
@@ -596,11 +606,11 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const targetTab = btn.dataset.tab;
-                    
+
                     // Update active button
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    
+
                     // Update active content
                     document.querySelectorAll('.tab-content').forEach(content => {
                         content.classList.remove('active');
@@ -614,7 +624,7 @@
         async function fetchOrders(customerId) {
             try {
                 const response = await fetch(`get_user_orders.php?customer_id=${customerId}`);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -650,20 +660,20 @@
             orders.forEach(order => {
                 const statusClass = getStatusClass(order.WebsiteStatus);
                 const statusText = order.WebsiteStatus || 'Pending';
-                
+
                 // Parse items
                 let itemsHtml = '';
                 if (order.items) {
                     try {
                         const items = JSON.parse(order.items);
-                        itemsHtml = items.map(item => 
+                        itemsHtml = items.map(item =>
                             `<li><span>${item.quantity}x ${item.name}</span> <span class="detail-value">₱${(item.quantity * item.price).toFixed(2)}</span></li>`
                         ).join('');
                     } catch (e) {
                         itemsHtml = '<li>Unable to load items</li>';
                     }
                 }
-                
+
                 const card = document.createElement('div');
                 card.className = 'order-card';
                 card.innerHTML = `
@@ -694,7 +704,7 @@
         async function fetchReservations(customerId) {
             try {
                 const response = await fetch(`get_user_reservations.php?customer_id=${customerId}`);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -730,20 +740,20 @@
             reservations.forEach(reservation => {
                 const statusClass = getStatusClass(reservation.ReservationStatus);
                 const statusText = reservation.ReservationStatus || 'Pending';
-                
+
                 // Parse items
                 let itemsHtml = '';
                 if (reservation.items) {
                     try {
                         const items = JSON.parse(reservation.items);
-                        itemsHtml = items.map(item => 
+                        itemsHtml = items.map(item =>
                             `<li><span>${item.quantity}x ${item.name}</span> <span class="detail-value">₱${(item.quantity * item.price).toFixed(2)}</span></li>`
                         ).join('');
                     } catch (e) {
                         itemsHtml = '<li>Unable to load items</li>';
                     }
                 }
-                
+
                 const card = document.createElement('div');
                 card.className = 'reservation-card';
                 card.innerHTML = `
@@ -787,10 +797,10 @@
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
-            if (checkLoginAndProceed('ViewOrder.html')) { 
+            if (checkLoginAndProceed('ViewOrder.html')) {
                 currentUser = JSON.parse(localStorage.getItem(USER_KEY));
                 const customerId = currentUser ? (currentUser.customerId || currentUser.CustomerID || currentUser.id) : null;
-                
+
                 if (customerId) {
                     fetchOrders(customerId);
                     fetchReservations(customerId);
@@ -799,12 +809,13 @@
                     window.location.href = LOGIN_PAGE;
                 }
             }
-            
+
             updateAccountLink();
-            updateCartDisplay(); 
+            updateCartDisplay();
             setupGlobalListeners();
             setupTabNavigation();
         });
     </script>
 </body>
+
 </html>

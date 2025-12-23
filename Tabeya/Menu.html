@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Tabeya Restaurant</title>
-    <link rel="stylesheet" href="CSS/Menu.css"> 
+    <link rel="stylesheet" href="CSS/Menu.css">
 </head>
+
 <body>
 
     <header>
         <div class="logo">
             <img src="Photo/Tabeya Name.png" alt="Tabeya Logo">
         </div>
-        <nav>
+        <nav class="nav-links">
             <a href="Home.html">HOME</a>
             <a href="Menu.html" class="active">MENU</a>
             <a href="#" id="cater-reservation-link">CATER RESERVATION</a>
             <a href="Review.php">TESTIMONY</a>
             <a href="About.html">ABOUT</a>
-            <a href="Login.html" id="account-link">PROFILE</a> 
+        </nav>
+        <div class="header-right">
+            <a href="Login.html" id="account-link">PROFILE</a>
             <div class="cart-icon" id="view-cart-btn">
                 🛒 <span class="cart-count" id="cart-item-count">0</span>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Best Sellers Section -->
@@ -52,7 +56,7 @@
             <button id="checkout-btn">Proceed to Checkout</button>
         </div>
     </div>
-    
+
     <footer>
         <div class="contact-section">
             <div class="container">
@@ -78,7 +82,8 @@
                             <img src="Photo/Facebook.png" alt="Facebook Icon" class="icon">
                             <div>
                                 <strong>Connect to us</strong>
-                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank" class="no-underline">Tabeya, VCN</a>
+                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank"
+                                    class="no-underline">Tabeya, VCN</a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +101,7 @@
         const LOGIN_PAGE = 'Login.html';
         const CATER_RESERVATION_PAGE = 'CaterReservation.html';
         const PROFILE_PAGE = 'Profile.html';
-        
+
         let allProducts = [];
         let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
 
@@ -106,7 +111,7 @@
         }
 
         function checkLoginAndProceed(redirectTarget) {
-            if (!checkUserLoginStatus()) { 
+            if (!checkUserLoginStatus()) {
                 alert("You must log in to perform this action.");
                 if (redirectTarget) {
                     localStorage.setItem('redirectAfterLogin', redirectTarget);
@@ -115,11 +120,11 @@
                 return false;
             }
             if (redirectTarget && redirectTarget !== 'Menu.html') {
-                 window.location.href = redirectTarget;
+                window.location.href = redirectTarget;
             }
             return true;
         }
-        
+
         // ====================================================================
         // === DATA FETCHING LOGIC ===
         // ====================================================================
@@ -138,10 +143,10 @@
         async function fetchMenuData() {
             console.log("Fetching menu data from fetch_products.php...");
             const container = document.getElementById('dynamic-menu-content');
-            
+
             try {
                 const response = await fetch('fetch_products.php');
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -149,7 +154,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    allProducts = result.products; 
+                    allProducts = result.products;
                     renderBestSellers(allProducts);
                     renderMenu(allProducts);
                     console.log(`Successfully loaded ${result.count} products.`);
@@ -173,10 +178,10 @@
         // ====================================================================
         // === STAR RATING GENERATION ===
         // ====================================================================
-        
+
         function generateStarRating(starRating, orderCount) {
             let starsHtml = '<div class="star-rating">';
-            
+
             // Generate 5 stars
             for (let i = 1; i <= 5; i++) {
                 if (i <= starRating) {
@@ -185,19 +190,19 @@
                     starsHtml += '<span class="star">★</span>';
                 }
             }
-            
+
             // Calculate average rating display (star rating * 1.0 for display)
             const ratingDisplay = starRating > 0 ? `(${starRating}.0)` : '(0.0)';
             starsHtml += `<span class="rating-number">${ratingDisplay}</span>`;
             starsHtml += '</div>';
-            
+
             return starsHtml;
         }
 
         // ====================================================================
         // === CART MANAGEMENT LOGIC ===
         // ====================================================================
-        
+
         function updateCartDisplay() {
             const count = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-item-count').textContent = count;
@@ -206,15 +211,15 @@
         function saveCart() {
             localStorage.setItem(CART_KEY, JSON.stringify(cart));
             updateCartDisplay();
-            if(document.getElementById('cart-modal').style.display === "block") {
+            if (document.getElementById('cart-modal').style.display === "block") {
                 renderCartModal();
             }
         }
 
         function addToCart(itemDetails) {
-            if (!checkUserLoginStatus()) { 
+            if (!checkUserLoginStatus()) {
                 alert("You must log in to add items to cart.");
-                localStorage.setItem('redirectAfterLogin', 'Menu.html'); 
+                localStorage.setItem('redirectAfterLogin', 'Menu.html');
                 window.location.href = LOGIN_PAGE;
                 return;
             }
@@ -225,7 +230,7 @@
                 return;
             }
 
-            const existingItem = cart.find(item => String(item.id) === String(itemDetails.id)); 
+            const existingItem = cart.find(item => String(item.id) === String(itemDetails.id));
 
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -242,13 +247,13 @@
             saveCart();
             alert(`${itemDetails.name} added to cart!`);
         }
-        
-        window.updateCartItemQuantity = function(itemId, change) { 
-            if (!checkUserLoginStatus()) { 
+
+        window.updateCartItemQuantity = function (itemId, change) {
+            if (!checkUserLoginStatus()) {
                 alert("You must log in to modify the cart.");
-                return; 
+                return;
             }
-            
+
             const itemIndex = cart.findIndex(item => String(item.id) === String(itemId));
             if (itemIndex > -1) {
                 cart[itemIndex].quantity += change;
@@ -258,7 +263,7 @@
                 saveCart();
             }
         }
-        
+
         function calculateTotal() {
             return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
         }
@@ -266,7 +271,7 @@
         // ====================================================================
         // === RENDERING FUNCTIONS ===
         // ====================================================================
-        
+
         function renderCartModal() {
             const listContainer = document.getElementById('cart-items-list');
             const totalElement = document.getElementById('cart-total');
@@ -278,17 +283,17 @@
                 checkoutBtn.disabled = true;
             } else {
                 // Check if any items are out of stock
-                const hasOutOfStock = cart.some(item => 
+                const hasOutOfStock = cart.some(item =>
                     item.stockStatus === 'out_of_stock' || item.stockStatus === 'low_stock'
                 );
 
                 cart.forEach(item => {
                     const itemTotal = (item.price * item.quantity).toFixed(2);
-                    const safeId = String(item.id).replace(/'/g, "\\'"); 
+                    const safeId = String(item.id).replace(/'/g, "\\'");
 
                     // Add warning for out of stock items
-                    const stockWarning = (item.stockStatus === 'out_of_stock' || item.stockStatus === 'low_stock') 
-                        ? '<span style="color: red; font-size: 0.8em;">⚠️ Unavailable</span>' 
+                    const stockWarning = (item.stockStatus === 'out_of_stock' || item.stockStatus === 'low_stock')
+                        ? '<span style="color: red; font-size: 0.8em;">⚠️ Unavailable</span>'
                         : '';
 
                     itemsHtml += `
@@ -317,7 +322,7 @@
                     checkoutBtn.disabled = false;
                 }
             }
-            
+
             listContainer.innerHTML = itemsHtml;
             totalElement.textContent = calculateTotal();
         }
@@ -337,12 +342,12 @@
             }
 
             let html = '';
-            
+
             bestSellers.forEach(item => {
                 const id = item.ProductID;
                 const name = item.ProductName;
                 const priceDisplay = parseFloat(item.Price).toFixed(2);
-                const rawPrice = item.Price; 
+                const rawPrice = item.Price;
                 const imagePath = item.Image;
                 const description = item.Description || '';
                 const starRating = item.StarRating || 0;
@@ -403,29 +408,29 @@
             container.innerHTML = html;
             setupBestSellersListeners();
         }
-        
+
         function renderMenu(products) {
             const container = document.getElementById('dynamic-menu-content');
             if (!container) return;
 
             let menuHtml = '';
-            
+
             const groupedProducts = groupProductsByCategory(products);
 
             container.innerHTML = '';
-            
+
             for (const categoryName in groupedProducts) {
                 menuHtml += `
                     <div class="menu-category-container menu-category">
                         <h3>${categoryName}</h3>
                         <div class="menu-grid2">
                 `;
-                
+
                 groupedProducts[categoryName].forEach(item => {
                     const id = item.ProductID;
                     const name = item.ProductName;
                     const priceDisplay = parseFloat(item.Price).toFixed(2);
-                    const rawPrice = item.Price; 
+                    const rawPrice = item.Price;
                     const imagePath = item.Image;
                     const description = item.Description || '';
                     const starRating = item.StarRating || 0;
@@ -482,7 +487,7 @@
                         </div>
                     `;
                 });
-                
+
                 menuHtml += `
                         </div>
                     </div>
@@ -492,14 +497,14 @@
             container.innerHTML = menuHtml;
             setupMenuListeners();
         }
-        
+
         function updateAccountLink() {
             const accountLink = document.getElementById('account-link');
             const user = JSON.parse(localStorage.getItem(USER_KEY));
-            
+
             if (user) {
-                accountLink.textContent = user.name.split(' ')[0].toUpperCase(); 
-                accountLink.href = PROFILE_PAGE; 
+                accountLink.textContent = user.name.split(' ')[0].toUpperCase();
+                accountLink.href = PROFILE_PAGE;
             } else {
                 accountLink.textContent = 'PROFILE';
                 accountLink.href = LOGIN_PAGE;
@@ -517,7 +522,7 @@
                     const price = parseFloat(e.target.getAttribute('data-price'));
                     const available = e.target.getAttribute('data-available') === 'true';
                     const stockStatus = e.target.getAttribute('data-stock-status');
-                    
+
                     addToCart({ id, name, price, available, stockStatus });
                 });
             });
@@ -531,39 +536,39 @@
                     const price = parseFloat(e.target.getAttribute('data-price'));
                     const available = e.target.getAttribute('data-available') === 'true';
                     const stockStatus = e.target.getAttribute('data-stock-status');
-                    
+
                     addToCart({ id, name, price, available, stockStatus });
                 });
             });
         }
-        
+
         function setupGlobalListeners() {
             const modal = document.getElementById('cart-modal');
             const btn = document.getElementById("view-cart-btn");
             const span = document.getElementsByClassName("close-btn")[0];
             const checkoutBtn = document.getElementById('checkout-btn');
 
-            btn.onclick = function() {
+            btn.onclick = function () {
                 if (checkLoginAndProceed('Menu.html')) {
                     renderCartModal();
                     modal.style.display = "block";
                 }
             }
 
-            span.onclick = function() {
+            span.onclick = function () {
                 modal.style.display = "none";
             }
 
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             }
-            
+
             checkoutBtn.addEventListener('click', () => {
                 if (cart.length > 0) {
                     // Verify all items are available before checkout
-                    const hasUnavailable = cart.some(item => 
+                    const hasUnavailable = cart.some(item =>
                         item.stockStatus === 'out_of_stock' || item.stockStatus === 'low_stock'
                     );
 
@@ -572,19 +577,19 @@
                         return;
                     }
 
-                    if(checkLoginAndProceed('Checkout.html')) {
+                    if (checkLoginAndProceed('Checkout.html')) {
                         // Redirect handled inside checkLoginAndProceed
                     }
                 } else {
                     alert("Your cart is empty!");
                 }
             });
-            
+
             const caterLink = document.getElementById('cater-reservation-link');
             if (caterLink) {
                 caterLink.addEventListener('click', (e) => {
-                    e.preventDefault(); 
-                    checkLoginAndProceed(CATER_RESERVATION_PAGE); 
+                    e.preventDefault();
+                    checkLoginAndProceed(CATER_RESERVATION_PAGE);
                 });
             }
         }
@@ -592,17 +597,18 @@
         // ====================================================================
         // === INITIALIZATION ===
         // ====================================================================
-        
+
         function updateHeaderElements() {
             updateCartDisplay();
             updateAccountLink();
         }
-        
+
         document.addEventListener('DOMContentLoaded', () => {
-            fetchMenuData(); 
-            updateHeaderElements(); 
+            fetchMenuData();
+            updateHeaderElements();
             setupGlobalListeners();
         });
     </script>
 </body>
+
 </html>
