@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile - Tabeya</title>
-
+    
     <link rel="stylesheet" href="CSS/Profile.css">
     <style>
         .profile-section {
@@ -77,31 +76,28 @@
         }
     </style>
 </head>
-
 <body>
 
     <header>
         <div class="logo">
             <img src="Photo/Tabeya Name.png" alt="Tabeya Logo">
         </div>
-        <nav class="nav-links">
+        <nav>
             <a href="Home.html">HOME</a>
-            <a href="Menu.html">MENU</a>
+            <a href="Menu.html">MENU</a> 
             <a href="#" id="cater-reservation-link">CATER RESERVATION</a>
             <a href="Review.php">TESTIMONY</a>
             <a href="About.html">ABOUT</a>
-        </nav>
-        <div class="header-right">
-            <a href="Profile.html" id="account-link" class="active">PROFILE</a>
+            <a href="Profile.html" id="account-link" class="active">PROFILE</a> 
             <div class="cart-icon" id="view-cart-btn">
                 🛒 <span class="cart-count" id="cart-item-count">0</span>
             </div>
-        </div>
+        </nav>
     </header>
 
     <div class="profile-section">
         <h2>Edit Profile</h2>
-
+        
         <form class="edit-form" id="edit-profile-form">
             <label for="full-name">Full Name</label>
             <input type="text" id="full-name" name="full-name" required>
@@ -110,12 +106,10 @@
             <input type="email" id="email" name="email" required>
 
             <label for="contact">Contact Number</label>
-            <input type="tel" id="contact" name="contact" pattern="^09\d{9}$" maxlength="11"
-                placeholder="e.g., 09XXXXXXXXX" required>
+            <input type="tel" id="contact" name="contact" pattern="^09\d{9}$" maxlength="11" placeholder="e.g., 09XXXXXXXXX" required>
 
             <div class="profile-actions form-actions">
-                <button type="button" class="action-btn cancel-btn"
-                    onclick="window.location.href='Profile.html'">Cancel</button>
+                <button type="button" class="action-btn cancel-btn" onclick="window.location.href='Profile.html'">Cancel</button>
                 <button type="submit" class="action-btn save-btn" id="save-profile-btn">Save Changes</button>
             </div>
         </form>
@@ -133,7 +127,7 @@
             <button id="checkout-btn">Proceed to Checkout</button>
         </div>
     </div>
-
+    
     <footer>
         <div class="contact-section">
             <div class="container">
@@ -159,8 +153,7 @@
                             <img src="Photo/Facebook.png" alt="Facebook Icon" class="icon">
                             <div>
                                 <strong>Connect to us</strong>
-                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank"
-                                    class="no-underline">Tabeya, VCN</a>
+                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank" class="no-underline">Tabeya, VCN</a>
                             </div>
                         </div>
                     </div>
@@ -168,7 +161,7 @@
             </div>
         </div>
     </footer>
-
+    
     <script>
         const CART_KEY = 'tabeyaCart';
         const USER_KEY = 'currentUser';
@@ -178,7 +171,7 @@
         const API_ROOT = window.location.origin + window.location.pathname.replace('EditProfile.html', '');
         const PROFILE_API = `${API_ROOT}api/customers/profile.php`;
         const UPDATE_PROFILE_API = `${API_ROOT}api/customers/update_profile.php`;
-
+        
         let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
         let isSubmitting = false;
 
@@ -359,7 +352,7 @@
             const count = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
             document.getElementById('cart-item-count').textContent = count;
         }
-
+        
         function calculateTotal() {
             return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
         }
@@ -374,7 +367,7 @@
             }
             saveCart();
         }
-
+        
         function saveCart() {
             localStorage.setItem(CART_KEY, JSON.stringify(cart));
             updateCartDisplay();
@@ -412,15 +405,15 @@
                 });
                 checkoutBtn.disabled = false;
             }
-
+            
             listContainer.innerHTML = itemsHtml;
             totalElement.textContent = calculateTotal();
             setupCartModalListeners();
         }
-
+        
         function setupCartModalListeners() {
             const modal = document.getElementById('cart-modal');
-
+            
             modal.querySelectorAll('.qty-minus').forEach(button => {
                 button.addEventListener('click', (e) => {
                     updateCartItemQuantity(e.target.getAttribute('data-id'), -1);
@@ -432,7 +425,7 @@
                     updateCartItemQuantity(e.target.getAttribute('data-id'), 1);
                 });
             });
-
+            
             document.getElementById('checkout-btn').addEventListener('click', () => {
                 if (checkLoginAndProceed('Checkout.html')) {
                     window.location.href = 'Checkout.html';
@@ -447,24 +440,24 @@
             const editForm = document.getElementById('edit-profile-form');
 
             if (btn) {
-                btn.onclick = function () {
+                btn.onclick = function() {
                     renderCartModal();
                     modal.style.display = "block";
                 };
             }
 
             if (span) {
-                span.onclick = function () {
+                span.onclick = function() {
                     modal.style.display = "none";
                 };
             }
 
-            window.onclick = function (event) {
+            window.onclick = function(event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             };
-
+            
             const caterLink = document.getElementById('cater-reservation-link');
             if (caterLink) {
                 caterLink.addEventListener('click', (e) => {
@@ -472,12 +465,12 @@
                     checkLoginAndProceed(CATER_RESERVATION_PAGE);
                 });
             }
-
+            
             if (editForm) {
                 editForm.addEventListener('submit', handleFormSubmission);
             }
         }
-
+        
         async function initializeProfileEditor() {
             if (!checkLoginAndProceed()) {
                 return;
@@ -504,11 +497,10 @@
 
             populateFormFields(normalizedUser);
         }
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             initializeProfileEditor();
         });
     </script>
 </body>
-
 </html>

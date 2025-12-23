@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,10 +20,8 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-
         /* FIX: Footer stays at the bottom and no overlapping */
-        body,
-        html {
+        body, html {
             height: 100%;
             margin: 0;
         }
@@ -35,18 +32,14 @@
         }
 
         .checkout-container {
-            flex: 1 0 auto;
-            /* This makes the checkout section push footer down */
-            padding-bottom: 40px;
-            /* Safe spacing above footer */
+            flex: 1 0 auto;           /* This makes the checkout section push footer down */
+            padding-bottom: 40px;     /* Safe spacing above footer */
         }
 
         footer {
             flex-shrink: 0;
-            margin-top: 40px;
-            /* Space above footer */
-            position: relative;
-            /* Removes overlap behavior */
+            margin-top: 40px;         /* Space above footer */
+            position: relative;       /* Removes overlap behavior */
             z-index: 1;
         }
 
@@ -89,7 +82,7 @@
             border-bottom: 1px dashed #ddd;
             font-size: 0.95em;
         }
-
+        
         .checkout-item:last-child {
             border-bottom: none;
         }
@@ -108,13 +101,13 @@
             color: #666;
             font-size: 0.9em;
         }
-
+        
         .item-subtotal-co {
             font-weight: bold;
             color: #008000;
             font-size: 1.1em;
         }
-
+        
         .summary-total {
             text-align: right;
             margin-top: 15px;
@@ -137,7 +130,7 @@
             border-bottom: 2px solid #BC1823;
             padding-bottom: 10px;
         }
-
+        
         .form-group {
             margin-bottom: 20px;
         }
@@ -150,9 +143,7 @@
             font-size: 1.05em;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -162,8 +153,7 @@
             transition: border-color 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group input:focus, .form-group textarea:focus {
             border-color: #BC1823;
             outline: none;
         }
@@ -327,7 +317,7 @@
         .file-name-display.show {
             display: block;
         }
-
+        
         .full-width-btn {
             width: 100%;
             padding: 18px;
@@ -347,7 +337,7 @@
         .full-width-btn:hover:not(:disabled) {
             background-color: #006400;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .full-width-btn:disabled {
@@ -370,58 +360,56 @@
             justify-content: center;
             align-items: center;
         }
-
         /* ADDED: Wider container so summary + payment are not too stretched */
-        .checkout-container {
-            max-width: 1100px;
-            /* Increased from 900px */
-            width: 100%;
-        }
+.checkout-container {
+    max-width: 1100px;      /* Increased from 900px */
+    width: 100%;
+}
 
-        /* ADDED: Make inner checkout section wider and centered better */
-        .checkout-section {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+/* ADDED: Make inner checkout section wider and centered better */
+.checkout-section {
+    max-width: 1000px;
+    margin: 0 auto;
+}
 
-        /* ADDED: Make order summary and payment boxes wider */
-        .order-summary-box,
-        .payment-box {
-            max-width: 100%;
-        }
+/* ADDED: Make order summary and payment boxes wider */
+.order-summary-box,
+.payment-box {
+    max-width: 100%;
+}
 
-        /* ADDED: Allow checkout page to scroll independently */
-        body {
-            overflow-y: auto;
-        }
+/* ADDED: Allow checkout page to scroll independently */
+body {
+    overflow-y: auto;
+}
 
-        /* ADDED: Prevent overlapping with footer on smaller screens */
-        .checkout-container {
-            padding-bottom: 120px !important;
-        }
+/* ADDED: Prevent overlapping with footer on smaller screens */
+.checkout-container {
+    padding-bottom: 120px !important; 
+}
 
-        /* ADDED: Responsive behavior so content shrinks but does NOT overlap */
-        @media (max-width: 1024px) {
-            .checkout-container {
-                max-width: 95%;
-            }
+/* ADDED: Responsive behavior so content shrinks but does NOT overlap */
+@media (max-width: 1024px) {
+    .checkout-container {
+        max-width: 95%;
+    }
 
-            .checkout-section {
-                padding: 30px;
-            }
-        }
+    .checkout-section {
+        padding: 30px;
+    }
+}
 
-        @media (max-width: 768px) {
-            .checkout-section {
-                max-width: 100%;
-                padding: 20px;
-            }
+@media (max-width: 768px) {
+    .checkout-section {
+        max-width: 100%;
+        padding: 20px;
+    }
 
-            .order-summary-box,
-            .payment-box {
-                padding: 15px;
-            }
-        }
+    .order-summary-box,
+    .payment-box {
+        padding: 15px;
+    }
+}
 
         .success-popup-content {
             background-color: white;
@@ -466,7 +454,7 @@
         .success-popup-content button:hover {
             background-color: #a0141d;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         /* Responsive Design */
@@ -516,26 +504,23 @@
         }
     </style>
 </head>
-
 <body>
 
     <header>
         <div class="logo">
             <img src="Photo/Tabeya Name.png" alt="Tabeya Logo">
         </div>
-        <nav class="nav-links">
+        <nav>
             <a href="Home.html">HOME</a>
             <a href="Menu.html">MENU</a>
             <a href="#" id="cater-reservation-link">CATER RESERVATION</a>
             <a href="Review.php">TESTIMONY</a>
             <a href="About.html">ABOUT</a>
-        </nav>
-        <div class="header-right">
-            <a href="Login.html" id="account-link">PROFILE</a>
+            <a href="Login.html" id="account-link">PROFILE</a> 
             <div class="cart-icon" id="view-cart-btn">
                 🛒 <span class="cart-count" id="cart-item-count">0</span>
             </div>
-        </div>
+        </nav>
     </header>
 
     <div class="checkout-container">
@@ -555,22 +540,21 @@
             <form id="checkout-form">
                 <div class="form-section">
                     <h3>📝 Customer Information</h3>
-
+                    
                     <div class="form-group">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required readonly>
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="contact">Contact Number:</label>
-                        <input type="text" id="contact" name="contact" required pattern="09[0-9]{9}"
-                            placeholder="09XXXXXXXXX">
+                        <input type="text" id="contact" name="contact" required pattern="09[0-9]{9}" placeholder="09XXXXXXXXX">
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h3>🚚 Delivery Options</h3>
-
+                    
                     <div class="delivery-options">
                         <div class="delivery-option">
                             <input type="radio" id="order-pickup" name="order_type" value="PICKUP" checked>
@@ -581,10 +565,9 @@
                             <label for="order-delivery">🚚 Delivery to Address</label>
                         </div>
                     </div>
-
+                    
                     <div class="delivery-address-box" id="delivery-address-group">
-                        <input type="text" id="address" name="address" placeholder="Enter your full delivery address..."
-                            maxlength="500">
+                        <input type="text" id="address" name="address" placeholder="Enter your full delivery address..." maxlength="500">
                         <p>✓ Free Delivery available within Poblacion, Vinzons</p>
                     </div>
                 </div>
@@ -592,8 +575,7 @@
                 <div class="form-section">
                     <div class="form-group">
                         <label for="special-requests">📝 Special Requests (Optional):</label>
-                        <textarea id="special-requests" name="special_requests" rows="3"
-                            placeholder="E.g., No spicy, extra serving, specific arrangements..."></textarea>
+                        <textarea id="special-requests" name="special_requests" rows="3" placeholder="E.g., No spicy, extra serving, specific arrangements..."></textarea>
                     </div>
                 </div>
 
@@ -601,9 +583,8 @@
                 <div class="payment-box">
                     <div class="payment-icon">💳</div>
                     <h3>GCash Payment</h3>
-                    <p>Please transfer the amount to our registered GCash number<br>and upload a screenshot of your
-                        receipt.</p>
-
+                    <p>Please transfer the amount to our registered GCash number<br>and upload a screenshot of your receipt.</p>
+                    
                     <div class="payment-amount">
                         <p>Total Amount to Pay:</p>
                         <div class="amount">₱<span id="payment-total-amount">0.00</span></div>
@@ -633,33 +614,34 @@
             <button onclick="redirectToHome()">Continue Shopping</button>
         </div>
     </div>
-
+    
     <footer>
         <div class="contact-section">
-            <div class="contact-info">
-                <h2>Contact Us</h2>
-                <p style="margin-bottom: 25px; font-size: 14px;">Have any questions? We'd love to hear from you.</p>
-                <div class="info-group">
-                    <div class="info-item">
-                        <img src="Photo/VisitUs.png" alt="Location Icon">
-                        <div>
-                            <strong>Visit us</strong>
-                            <p>Poblacion 2, Vinzons Avenue,<br>Vinzons, Camarines Norte</p>
+            <div class="container">
+                <div class="contact-info">
+                    <h2>Contact Us</h2>
+                    <p>Have any questions? We'd love to hear from you.</p>
+                    <div class="info-group">
+                        <div class="info-item visit-us">
+                            <img src="Photo/VisitUs.png" alt="Location Icon" class="icon">
+                            <div>
+                                <strong>Visit us</strong>
+                                <p>Poblacion 2, Vinzons Avenue,<br>Vinzons, Camarines Norte</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="info-item">
-                        <img src="Photo/Selpon.png" alt="Phone Icon">
-                        <div>
-                            <strong>Call us</strong>
-                            <p>09380839641</p>
+                        <div class="info-item call-us">
+                            <img src="Photo/Selpon.png" alt="Phone Icon" class="icon">
+                            <div>
+                                <strong>Call us</strong>
+                                <p>09380839641</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="info-item">
-                        <img src="Photo/Facebook.png" alt="Facebook Icon">
-                        <div>
-                            <strong>Connect to us</strong>
-                            <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya,
-                                VCN</a>
+                        <div class="info-item connect-us">
+                            <img src="Photo/Facebook.png" alt="Facebook Icon" class="icon">
+                            <div>
+                                <strong>Connect to us</strong>
+                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank" class="no-underline">Tabeya, VCN</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -700,7 +682,7 @@
             cart.forEach(item => {
                 const subtotal = item.price * item.quantity;
                 grandTotal += subtotal;
-
+                
                 itemsHtml += `
                     <div class="checkout-item">
                         <div class="item-details-co">
@@ -728,7 +710,7 @@
             const orderTypeRadios = document.querySelectorAll('input[name="order_type"]');
             const addressGroup = document.getElementById('delivery-address-group');
             const addressInput = document.getElementById('address');
-
+            
             orderTypeRadios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     if (e.target.value === 'DELIVERY') {
@@ -769,7 +751,7 @@
         function updateCartLink() {
             const count = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-item-count').textContent = count;
-
+            
             const accountLink = document.getElementById('account-link');
             if (currentUser) {
                 accountLink.textContent = currentUser.name.split(' ')[0].toUpperCase();
@@ -794,27 +776,27 @@
 
             try {
                 const formData = new FormData();
-
+                
                 // Customer data
                 formData.append('customer_id', currentUser.customerId || '');
                 formData.append('name', document.getElementById('name').value);
                 formData.append('contact', document.getElementById('contact').value);
-
+                
                 // Order data
                 const orderType = document.querySelector('input[name="order_type"]:checked').value;
                 formData.append('order_type', orderType);
-
+                
                 if (orderType === 'DELIVERY') {
                     formData.append('address', document.getElementById('address').value);
                 }
-
+                
                 // Payment data - Always GCash
                 formData.append('payment_method', 'GCASH');
                 formData.append('gcash_receipt', uploadedFile);
-
+                
                 // Special requests
                 formData.append('special_requests', document.getElementById('special-requests').value);
-
+                
                 // Cart data
                 formData.append('cart_data', JSON.stringify(cart));
                 formData.append('total_amount', calculateTotal().toFixed(2));
@@ -829,7 +811,7 @@
                 if (result.success) {
                     // Clear cart
                     localStorage.removeItem(CART_KEY);
-
+                    
                     // Show success popup
                     document.getElementById('success-popup').style.display = 'flex';
                 } else {
@@ -853,7 +835,7 @@
                 alert("Please modify your cart on the Menu page.");
                 window.location.href = 'Menu.html';
             });
-
+            
             document.getElementById('cater-reservation-link').addEventListener('click', (e) => {
                 e.preventDefault();
                 if (currentUser) {
@@ -878,5 +860,4 @@
         });
     </script>
 </body>
-
 </html>

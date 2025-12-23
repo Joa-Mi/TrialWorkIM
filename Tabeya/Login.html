@@ -90,19 +90,17 @@
         <div class="logo">
             <img src="Photo/Tabeya Name.png" alt="Tabeya Logo">
         </div>
-        <nav class="nav-links">
+        <nav>
             <a href="Home.html">HOME</a>
             <a href="Menu.html">MENU</a>
             <a href="CaterReservation.html">CATER RESERVATION</a>
-            <a href="Review.php">TESTIMONY</a>
+            <a href="Review.html">TESTIMONY</a>
             <a href="About.html">ABOUT</a>
-        </nav>
-        <div class="header-right">
-            <a href="Login.html" id="account-link" class="active">PROFILE</a>
+            <a href="Login.html" class="active">PROFILE</a>
             <div class="cart-icon" id="view-cart-btn">
                 🛒 <span class="cart-count" id="cart-item-count">0</span>
             </div>
-        </div>
+        </nav>
     </header>
 
     <div class="login-container">
@@ -147,16 +145,19 @@
     <script>
         const formContent = document.getElementById('form-content');
         let isLoginMode = true;
+        // Generic monochrome SVG icons for password visibility
+        const iconShow = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+        const iconHide = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M1 1l22 22"/></svg>`;
 
         // --- TOGGLE PASSWORD VISIBILITY ---
         function togglePasswordVisibility(fieldId, button) {
             const field = document.getElementById(fieldId);
             if (field.type === 'password') {
                 field.type = 'text';
-                button.textContent = '🙈';
+                button.innerHTML = iconHide;
             } else {
                 field.type = 'password';
-                button.textContent = '👁️';
+                button.innerHTML = iconShow;
             }
         }
 
@@ -534,38 +535,6 @@
             }
         });
     </script>
-    <footer>
-        <div class="contact-section">
-            <div class="contact-info">
-                <h2>Contact Us</h2>
-                <p style="margin-bottom: 25px; font-size: 14px;">Have any questions? We'd love to hear from you.</p>
-                <div class="info-group">
-                    <div class="info-item">
-                        <img src="Photo/VisitUs.png" alt="Location Icon">
-                        <div>
-                            <strong>Visit us</strong>
-                            <p>Poblacion 2, Vinzons Avenue,<br>Vinzons, Camarines Norte</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <img src="Photo/Selpon.png" alt="Phone Icon">
-                        <div>
-                            <strong>Call us</strong>
-                            <p>09380839641</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <img src="Photo/Facebook.png" alt="Facebook Icon">
-                        <div>
-                            <strong>Connect to us</strong>
-                            <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya,
-                                VCN</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>

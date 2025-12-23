@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
     <link rel="stylesheet" href="CSS/About.css">
-
+ 
 </head>
-
 <body>
     <header>
-        <div class="logo">
+        <div class="Name">
             <img src="Photo/Tabeya Name.png" alt="Tabeya logo">
         </div>
-        <nav class="nav-links">
+        <nav>
             <a href="Home.html">HOME</a>
             <a href="Menu.html">MENU</a>
             <a href="CaterReservation.html" id="cater-reservation-link">CATER RESERVATION</a>
             <a href="Review.php">TESTIMONY</a>
             <a href="About.html" class="active">ABOUT</a>
-        </nav>
-        <div class="header-right">
             <a href="Login.html" id="account-link">PROFILE</a>
             <div class="cart-icon" id="view-cart-btn">
                 🛒 <span class="cart-count" id="cart-item-count">0</span>
             </div>
-        </div>
+        </nav>
     </header>
 
     <h1>ABOUT US</h1>
@@ -35,35 +31,26 @@
         <div class="text-box">
             <div>
                 <p>
-                    <strong>Reichan Tabeya</strong> is a local food store located in Vinzons, Camarines Norte, dedicated
-                    to serving authentic Filipino dishes that bring the comforting taste of home to every customer.
-                    Inspired by a love for Filipino cuisine and a passion for sharing it with the community, our journey
-                    began with the simple goal of providing fresh, delicious meals at an affordable price. At Reichan
-                    Tabeya, we take pride in our signature dishes, crafted with care and rooted in tradition. From
-                    well-loved classics to unique local favorites, our menu reflects the rich culinary heritage of the
-                    Philippines. Each dish is prepared with quality ingredients and a commitment to delivering flavors
-                    that feel familiar and satisfying.
+                    <strong>Reichan Tabeya</strong> is a local food store located in Vinzons, Camarines Norte, dedicated to serving authentic Filipino dishes that bring the comforting taste of home to every customer. Inspired by a love for Filipino cuisine and a passion for sharing it with the community, our journey began with the simple goal of providing fresh, delicious meals at an affordable price. At Reichan Tabeya, we take pride in our signature dishes, crafted with care and rooted in tradition. From well-loved classics to unique local favorites, our menu reflects the rich culinary heritage of the Philippines. Each dish is prepared with quality ingredients and a commitment to delivering flavors that feel familiar and satisfying.
                 </p>
 
                 <!-- Map Section Inside Text Box, Below Paragraph -->
                 <div style="margin-top: 30px;">
                     <!-- Google Maps Embed with Tabeya Restaurant Location -->
                     <div class="map-wrapper">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.3775549994066!2d122.90395349264149!3d14.17265100702453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3398b100583b2957%3A0x165ac36a6dc4ef46!2sReichan%20Tabeya!5e0!3m2!1sen!2sph!4v1763915175886!5m2!1sen!2sph"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-
-                    <!-- Interactive Direction Buttons -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.3775549994066!2d122.90395349264149!3d14.17265100702453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3398b100583b2957%3A0x165ac36a6dc4ef46!2sReichan%20Tabeya!5e0!3m2!1sen!2sph!4v1763915175886!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div> 
+                    
+                  <!-- Interactive Direction Buttons -->
                     <div class="map-controls">
                         <button id="get-directions-btn" class="map-btn" onclick="getDirectionsFromMyLocation()">
                             <span>🧭</span>
                             <span>Get Directions from My Location</span>
                         </button>
-
-                        <a href="https://www.google.com/maps/place/Tabeya+Restaurant/@14.176114125131747,122.90052770054795,15z"
-                            target="_blank" class="map-btn secondary">
+                        
+                        <a href="https://www.google.com/maps/place/Tabeya+Restaurant/@14.176114125131747,122.90052770054795,15z" 
+                           target="_blank" 
+                           class="map-btn secondary">
                             <span>🗺️</span>
                             <span>View in Google Maps</span>
                         </a>
@@ -72,14 +59,13 @@
             </div>
         </div>
     </div>
-
+             
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Your Cart</h2>
             <div id="cart-items">
-                <p id="empty-cart-message" style="text-align: center; color: #888; margin-top: 20px;">Your cart is
-                    empty.</p>
+                <p id="empty-cart-message" style="text-align: center; color: #888; margin-top: 20px;">Your cart is empty.</p>
             </div>
             <div class="cart-summary">
                 <p>Total: <span id="cart-total">₱0.00</span></p>
@@ -113,200 +99,199 @@
                             <img src="Photo/Facebook.png" alt="Facebook Icon" class="icon">
                             <div>
                                 <strong>Connect to us</strong>
-                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank"
-                                    class="no-underline">Tabeya, VCN</a>
+                                <a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank" class="no-underline">Tabeya, VCN</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+    
     </footer>
 
     <script>
-        // ====================================================================
-        // === GOOGLE MAPS DIRECTIONS FUNCTIONALITY ===
-        // ====================================================================
-
-        const TABEYA_COORDS = '14.176114125131747,122.90052770054795';
-
-        /**
-         * Get directions from user's current location to Tabeya Restaurant
-         * Uses GPS location detection and opens Google Maps with directions
-         */
-        function getDirectionsFromMyLocation() {
-            const btn = document.getElementById('get-directions-btn');
-            const user = getCurrentUser();
-
-            // Check if geolocation is supported
-            if (!navigator.geolocation) {
-                alert('Sorry, your browser does not support location services. Please use the "View in Google Maps" button instead.');
-                return;
-            }
-
-            // Disable button and show loading state
-            btn.disabled = true;
-            btn.innerHTML = '<span>🔄</span><span>Getting your location...</span>';
-
-            // Get user's current position
-            navigator.geolocation.getCurrentPosition(
-                // Success callback
-                function (position) {
-                    const userLat = position.coords.latitude;
-                    const userLng = position.coords.longitude;
-
-                    // Log user info if available (for email-based location context)
-                    if (user && user.email) {
-                        const emailDomain = user.email.split('@')[1];
-                        console.log('User logged in:', user.name);
-                        console.log('Email domain:', emailDomain);
-                        console.log('GPS Location:', userLat, userLng);
-                    }
-
-                    // Open Google Maps with directions from user location to restaurant
-                    const mapsUrl = `https://www.google.com/maps/dir/${userLat},${userLng}/${TABEYA_COORDS}`;
-                    window.open(mapsUrl, '_blank');
-
-                    // Reset button
-                    btn.disabled = false;
-                    btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
-                },
-                // Error callback
-                function (error) {
-                    let errorMessage = 'Unable to get your location. ';
-
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Please allow location access in your browser settings.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'Location information is unavailable.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'Location request timed out.';
-                            break;
-                        default:
-                            errorMessage += 'An unknown error occurred.';
-                    }
-
-                    // If user is logged in, mention their email context
-                    if (user && user.email) {
-                        const emailDomain = user.email.split('@')[1];
-                        console.log('Location error for user with email domain:', emailDomain);
-                    }
-
-                    alert(errorMessage + '\n\nYou can still use the "View in Google Maps" button to get directions manually.');
-
-                    // Reset button
-                    btn.disabled = false;
-                    btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
-                },
-                // Options
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
+    // ====================================================================
+    // === GOOGLE MAPS DIRECTIONS FUNCTIONALITY ===
+    // ====================================================================
+    
+    const TABEYA_COORDS = '14.176114125131747,122.90052770054795';
+    
+    /**
+     * Get directions from user's current location to Tabeya Restaurant
+     * Uses GPS location detection and opens Google Maps with directions
+     */
+    function getDirectionsFromMyLocation() {
+        const btn = document.getElementById('get-directions-btn');
+        const user = getCurrentUser();
+        
+        // Check if geolocation is supported
+        if (!navigator.geolocation) {
+            alert('Sorry, your browser does not support location services. Please use the "View in Google Maps" button instead.');
+            return;
+        }
+        
+        // Disable button and show loading state
+        btn.disabled = true;
+        btn.innerHTML = '<span>🔄</span><span>Getting your location...</span>';
+        
+        // Get user's current position
+        navigator.geolocation.getCurrentPosition(
+            // Success callback
+            function(position) {
+                const userLat = position.coords.latitude;
+                const userLng = position.coords.longitude;
+                
+                // Log user info if available (for email-based location context)
+                if (user && user.email) {
+                    const emailDomain = user.email.split('@')[1];
+                    console.log('User logged in:', user.name);
+                    console.log('Email domain:', emailDomain);
+                    console.log('GPS Location:', userLat, userLng);
                 }
-            );
-        }
-
-        // ====================================================================
-        // === CORE LOGIN/SECURITY FUNCTIONS ===
-        // ====================================================================
-        const LOGIN_PAGE = 'Login.html';
-        const CATER_RESERVATION_PAGE = 'CaterReservation.html';
-        const CURRENT_PAGE = 'About.html';
-
-        /**
-         * Checks if the user is logged in.
-         * @returns {object|null} The user object if logged in, null otherwise.
-         */
-        function getCurrentUser() {
-            try {
-                return JSON.parse(localStorage.getItem('currentUser'));
-            } catch (e) {
-                console.error("Error parsing user data from localStorage:", e);
-                return null;
-            }
-        }
-
-        /**
-         * Updates the PROFILE and CATER RESERVATION links based on login status.
-         */
-        function updateHeaderLinks() {
-            const accountLink = document.getElementById('account-link');
-            const caterLink = document.getElementById('cater-reservation-link');
-            const user = getCurrentUser();
-
-            // 1. Update PROFILE Link (Login/Logout State)
-            if (accountLink) {
-                accountLink.onclick = null;
-                if (user) {
-                    const firstName = user.name ? user.name.split(' ')[0] : user.firstName || 'PROFILE';
-                    accountLink.textContent = firstName.toUpperCase();
-                    accountLink.href = 'Profile.html';
-                } else {
-                    accountLink.textContent = 'PROFILE';
-                    accountLink.href = LOGIN_PAGE;
-                    accountLink.addEventListener('click', () => {
-                        localStorage.setItem('redirectAfterLogin', 'Profile.html');
-                    });
+                
+                // Open Google Maps with directions from user location to restaurant
+                const mapsUrl = `https://www.google.com/maps/dir/${userLat},${userLng}/${TABEYA_COORDS}`;
+                window.open(mapsUrl, '_blank');
+                
+                // Reset button
+                btn.disabled = false;
+                btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
+            },
+            // Error callback
+            function(error) {
+                let errorMessage = 'Unable to get your location. ';
+                
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage += 'Please allow location access in your browser settings.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage += 'Location information is unavailable.';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage += 'Location request timed out.';
+                        break;
+                    default:
+                        errorMessage += 'An unknown error occurred.';
                 }
-            }
-
-            // 2. Secure CATER RESERVATION Link
-            if (caterLink) {
-                caterLink.onclick = null;
-                if (!user) {
-                    caterLink.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        alert("You must log in to access the Cater Reservation page.");
-                        localStorage.setItem('redirectAfterLogin', CATER_RESERVATION_PAGE);
-                        window.location.href = LOGIN_PAGE;
-                    });
-                } else {
-                    caterLink.href = CATER_RESERVATION_PAGE;
+                
+                // If user is logged in, mention their email context
+                if (user && user.email) {
+                    const emailDomain = user.email.split('@')[1];
+                    console.log('Location error for user with email domain:', emailDomain);
                 }
+                
+                alert(errorMessage + '\n\nYou can still use the "View in Google Maps" button to get directions manually.');
+                
+                // Reset button
+                btn.disabled = false;
+                btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
+            },
+            // Options
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
             }
+        );
+    }
+
+    // ====================================================================
+    // === CORE LOGIN/SECURITY FUNCTIONS ===
+    // ====================================================================
+    const LOGIN_PAGE = 'Login.html';
+    const CATER_RESERVATION_PAGE = 'CaterReservation.html'; 
+    const CURRENT_PAGE = 'About.html';
+
+    /**
+     * Checks if the user is logged in.
+     * @returns {object|null} The user object if logged in, null otherwise.
+     */
+    function getCurrentUser() {
+        try {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        } catch (e) {
+            console.error("Error parsing user data from localStorage:", e);
+            return null;
         }
+    }
 
-        // ====================================================================
-        // === CART MANAGEMENT LOGIC (Secured) ===
-        // ====================================================================
-        const cartModal = document.getElementById('cart-modal');
-        const viewCartBtn = document.getElementById('view-cart-btn');
-        const closeBtn = document.querySelector('#cart-modal .close-btn');
-        const cartCountElement = document.getElementById('cart-item-count');
-        const cartItemsContainer = document.getElementById('cart-items');
-        const cartTotalElement = document.getElementById('cart-total');
-        const checkoutBtn = document.getElementById('checkout-btn');
+    /**
+     * Updates the PROFILE and CATER RESERVATION links based on login status.
+     */
+    function updateHeaderLinks() {
+        const accountLink = document.getElementById('account-link');
+        const caterLink = document.getElementById('cater-reservation-link');
+        const user = getCurrentUser();
 
-        let cart = JSON.parse(localStorage.getItem('tabeyaCart')) || [];
-
-        function saveCart() {
-            localStorage.setItem('tabeyaCart', JSON.stringify(cart));
-        }
-
-        function updateCartCount() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountElement.textContent = totalItems;
-        }
-
-        function updateCartTotal() {
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            cartTotalElement.textContent = `₱${total.toFixed(2)}`;
-            checkoutBtn.disabled = cart.length === 0 || !getCurrentUser();
-        }
-
-        function renderCart() {
-            cartItemsContainer.innerHTML = '';
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p id="empty-cart-message" style="text-align: center; color: #888; margin-top: 20px;">Your cart is empty.</p>';
+        // 1. Update PROFILE Link (Login/Logout State)
+        if (accountLink) {
+            accountLink.onclick = null;
+            if (user) {
+                const firstName = user.name ? user.name.split(' ')[0] : user.firstName || 'PROFILE';
+                accountLink.textContent = firstName.toUpperCase();
+                accountLink.href = 'Profile.html';
             } else {
-                cart.forEach((item, index) => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('cart-item');
-                    itemDiv.innerHTML = `
+                accountLink.textContent = 'PROFILE';
+                accountLink.href = LOGIN_PAGE;
+                accountLink.addEventListener('click', () => {
+                    localStorage.setItem('redirectAfterLogin', 'Profile.html');
+                });
+            }
+        }
+        
+        // 2. Secure CATER RESERVATION Link
+        if (caterLink) {
+            caterLink.onclick = null;
+            if (!user) {
+                caterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert("You must log in to access the Cater Reservation page.");
+                    localStorage.setItem('redirectAfterLogin', CATER_RESERVATION_PAGE);
+                    window.location.href = LOGIN_PAGE;
+                });
+            } else {
+                caterLink.href = CATER_RESERVATION_PAGE;
+            }
+        }
+    }
+
+    // ====================================================================
+    // === CART MANAGEMENT LOGIC (Secured) ===
+    // ====================================================================
+    const cartModal = document.getElementById('cart-modal');
+    const viewCartBtn = document.getElementById('view-cart-btn');
+    const closeBtn = document.querySelector('#cart-modal .close-btn'); 
+    const cartCountElement = document.getElementById('cart-item-count');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    let cart = JSON.parse(localStorage.getItem('tabeyaCart')) || [];
+
+    function saveCart() {
+        localStorage.setItem('tabeyaCart', JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountElement.textContent = totalItems;
+    }
+
+    function updateCartTotal() {
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotalElement.textContent = `₱${total.toFixed(2)}`;
+        checkoutBtn.disabled = cart.length === 0 || !getCurrentUser(); 
+    }
+
+    function renderCart() {
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p id="empty-cart-message" style="text-align: center; color: #888; margin-top: 20px;">Your cart is empty.</p>';
+        } else {
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
                     <div class="item-details">
                         <span class="item-name">${item.name}</span>
                         <span class="item-price">₱${(item.price * item.quantity).toFixed(2)}</span>
@@ -318,94 +303,93 @@
                         <button class="remove-btn" data-index="${index}">Remove</button>
                     </div>
                 `;
-                    cartItemsContainer.appendChild(itemDiv);
-                });
-            }
-            updateCartTotal();
-            saveCart();
-        }
-
-        // --- Event Handlers (Secured) ---
-
-        viewCartBtn.addEventListener('click', () => {
-            if (!getCurrentUser()) {
-                alert("You must log in to view your cart.");
-                localStorage.setItem('redirectAfterLogin', CURRENT_PAGE);
-                window.location.href = LOGIN_PAGE;
-                return;
-            }
-            renderCart();
-            cartModal.style.display = 'block';
-        });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                cartModal.style.display = 'none';
+                cartItemsContainer.appendChild(itemDiv);
             });
         }
+        updateCartTotal();
+        saveCart();
+    }
 
-        window.addEventListener('click', (event) => {
-            if (event.target === cartModal) {
-                cartModal.style.display = 'none';
-            }
-        });
+    // --- Event Handlers (Secured) ---
 
-        checkoutBtn.addEventListener('click', () => {
-            if (!getCurrentUser()) {
-                alert("You must log in to proceed to checkout.");
-                localStorage.setItem('redirectAfterLogin', CURRENT_PAGE);
-                window.location.href = LOGIN_PAGE;
-                return;
-            }
-            if (cart.length > 0) {
-                alert("Redirecting to checkout page...");
-            }
-        });
-
-        cartItemsContainer.addEventListener('click', (e) => {
-            const target = e.target;
-            const index = parseInt(target.getAttribute('data-index'));
-
-            if (!isNaN(index) && getCurrentUser()) {
-                const item = cart[index];
-
-                if (target.classList.contains('qty-btn')) {
-                    const action = target.getAttribute('data-action');
-                    if (action === 'increase') {
-                        item.quantity += 1;
-                    } else if (action === 'decrease' && item.quantity > 1) {
-                        item.quantity -= 1;
-                    } else if (action === 'decrease' && item.quantity === 1) {
-                        cart.splice(index, 1);
-                    }
-                    renderCart();
-                } else if (target.classList.contains('remove-btn')) {
-                    cart.splice(index, 1);
-                    renderCart();
-                }
-            }
-        });
-
-        function addToCart(itemDetails) {
-            const existingItem = cart.find(item => item.id === itemDetails.id);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ ...itemDetails, quantity: 1 });
-            }
-            renderCart();
-            console.log(`${itemDetails.name} added to cart! Total items: ${cartCountElement.textContent}`);
+    viewCartBtn.addEventListener('click', () => {
+        if (!getCurrentUser()) {
+             alert("You must log in to view your cart.");
+             localStorage.setItem('redirectAfterLogin', CURRENT_PAGE);
+             window.location.href = LOGIN_PAGE;
+             return;
         }
+        renderCart(); 
+        cartModal.style.display = 'block';
+    });
 
-        // ====================================================================
-        // === INITIALIZATION ===
-        // ====================================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            updateHeaderLinks();
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            cartModal.style.display = 'none';
         });
+    }
+
+    window.addEventListener('click', (event) => {
+        if (event.target === cartModal) {
+            cartModal.style.display = 'none';
+        }
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+        if (!getCurrentUser()) {
+            alert("You must log in to proceed to checkout.");
+            localStorage.setItem('redirectAfterLogin', CURRENT_PAGE);
+            window.location.href = LOGIN_PAGE;
+            return;
+        }
+        if (cart.length > 0) {
+            alert("Redirecting to checkout page...");
+        }
+    });
+
+    cartItemsContainer.addEventListener('click', (e) => {
+        const target = e.target;
+        const index = parseInt(target.getAttribute('data-index'));
+
+        if (!isNaN(index) && getCurrentUser()) {
+            const item = cart[index];
+            
+            if (target.classList.contains('qty-btn')) {
+                const action = target.getAttribute('data-action');
+                if (action === 'increase') {
+                    item.quantity += 1;
+                } else if (action === 'decrease' && item.quantity > 1) {
+                    item.quantity -= 1;
+                } else if (action === 'decrease' && item.quantity === 1) {
+                    cart.splice(index, 1);
+                }
+                renderCart();
+            } else if (target.classList.contains('remove-btn')) {
+                cart.splice(index, 1);
+                renderCart();
+            }
+        }
+    });
+
+    function addToCart(itemDetails) {
+        const existingItem = cart.find(item => item.id === itemDetails.id);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ ...itemDetails, quantity: 1 });
+        }
+        renderCart();
+        console.log(`${itemDetails.name} added to cart! Total items: ${cartCountElement.textContent}`);
+    }
+
+    // ====================================================================
+    // === INITIALIZATION ===
+    // ====================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCartCount();
+        updateHeaderLinks();
+    });
     </script>
 </body>
-
 </html>

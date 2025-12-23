@@ -8,8 +8,7 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     height: 100%;
 }
 
@@ -22,7 +21,7 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    min-height: 100vh;
+    min-height: 100vh; 
 }
 
 /* =========================================== */
@@ -45,52 +44,23 @@ header {
 }
 
 header .logo img {
-    max-width: 80px;
+    max-width: 120px;
     height: auto;
 }
 
-/* Center Navigation Links */
-nav.nav-links {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+nav {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
-
-/* Header Right Section */
-.header-right {
-    display: flex;
-    align-items: center;
+    align-items: center; 
     gap: 20px;
-    flex: 0 0 auto;
-}
-
-.header-right a {
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 13px;
-    /* Match updated nav size */
-    transition: color 0.2s;
-}
-
-.header-right a:hover {
-    color: yellow;
 }
 
 nav a {
     color: white;
-    font-size: 13px;
-    /* Smaller font size */
     font-weight: bold;
     text-decoration: none;
 }
 
-nav a:hover,
-nav a:active {
+nav a:hover, nav a:active {
     color: yellow;
 }
 
@@ -107,7 +77,7 @@ nav a.active {
     cursor: pointer;
     margin-left: 20px;
     position: relative;
-    color: white;
+    color: white; 
 }
 
 .cart-count {
@@ -120,7 +90,7 @@ nav a.active {
     padding: 2px 6px;
     font-size: 0.7em;
     font-weight: bold;
-    line-height: 1;
+    line-height: 1; 
 }
 
 .add-to-cart-btn {
@@ -142,7 +112,7 @@ nav a.active {
     background-color: #a0141d;
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .add-to-cart-btn:disabled {
@@ -162,18 +132,18 @@ nav a.active {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 10vh auto;
+    margin: 10vh auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 90%;
+    width: 90%; 
     max-width: 500px;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     position: relative;
 }
 
@@ -300,9 +270,9 @@ nav a.active {
 
 .bestsellers-section {
     padding: 20px;
-    z-index: 1;
+    z-index: 1; 
     margin-bottom: 20px;
-    margin-top: 40px;
+    margin-top: 40px; 
     width: 100%;
     max-width: 1400px;
     margin-left: auto;
@@ -311,11 +281,11 @@ nav a.active {
 
 .bestsellers-section h2 {
     color: yellow;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
     text-align: center;
     font-family: 'Arial Black', sans-serif;
-    font-size: 3em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 3em; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .bestsellers-grid {
@@ -332,9 +302,9 @@ nav a.active {
 .menu-section {
     padding: 20px;
     flex: 1;
-    z-index: 1;
+    z-index: 1; 
     margin-bottom: 40px;
-    margin-top: 20px;
+    margin-top: 20px; 
     width: 100%;
     max-width: 1400px;
     margin-left: auto;
@@ -343,11 +313,11 @@ nav a.active {
 
 .menu-section h2 {
     color: yellow;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
     text-align: center;
     font-family: 'Arial Black', sans-serif;
-    font-size: 3em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 3em; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .menu-category {
@@ -356,17 +326,17 @@ nav a.active {
     border-radius: 12px;
     margin-bottom: 35px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
 .menu-category h3 {
     font-family: 'Arial Black', sans-serif;
-    font-size: 2.2em;
+    font-size: 2.2em; 
     text-align: center;
     margin-bottom: 20px;
     color: white;
     padding: 10px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 /* --- Menu Grid Container (Square Cards) --- */
@@ -471,7 +441,6 @@ nav a.active {
     min-height: 2.6em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -509,7 +478,6 @@ nav a.active {
     min-height: 3.6em;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -549,8 +517,8 @@ footer {
 
 .contact-section {
     background-color: rgba(188, 24, 35, 0.9);
-    padding: 5px;
-    height: auto;
+    padding: 5px; 
+    height: auto; 
     width: 100%;
 }
 
@@ -580,18 +548,18 @@ footer {
 
 .info-group {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    gap: 1px;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    flex-wrap: nowrap; 
+    gap: 1px; 
 }
 
 .info-item.visit-us {
-    margin-right: 130px;
+    margin-right: 130px; 
 }
 
 .info-item.connect-us {
-    margin-left: 130px;
+    margin-left: 130px; 
 }
 
 .info-item {
@@ -606,7 +574,7 @@ footer {
     width: 40px;
     height: 40px;
     margin-right: 10px;
-    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(287deg) brightness(108%) contrast(100%);
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(287deg) brightness(108%) contrast(100%); 
 }
 
 .no-underline {
@@ -658,7 +626,7 @@ footer {
     .menu-category h3 {
         font-size: 1.8em;
     }
-
+    
     .info-group {
         flex-direction: column;
         align-items: center;
@@ -667,7 +635,7 @@ footer {
     .info-item.visit-us,
     .info-item.connect-us,
     .info-item.call-us {
-        margin: 10px 0;
+        margin: 10px 0; 
     }
 
     .info-item {
@@ -703,7 +671,7 @@ footer {
         padding: 10px;
         margin-top: 10px;
     }
-
+    
     .menu-grid2 {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 15px;
@@ -725,40 +693,40 @@ footer {
     .item-price {
         font-size: 1.2em;
     }
-
+    
     .info-group {
         flex-direction: column;
     }
-
+    
     .info-item {
-        flex-direction: column;
+        flex-direction: column; 
         align-items: center;
         margin-bottom: 15px;
     }
-
+    
     .icon {
         margin: 0 0 5px 0;
     }
-
+    
     .modal-content {
         margin: 5vh auto;
     }
-
+    
     .cart-item {
         flex-wrap: wrap;
         justify-content: space-between;
     }
-
+    
     .cart-item-info {
         flex-grow: 0;
         width: 100%;
         margin-bottom: 5px;
     }
-
+    
     .cart-item-controls {
         order: 3;
     }
-
+    
     .cart-item-subtotal {
         order: 4;
     }
