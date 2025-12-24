@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Sign Up</title>
+    <link rel="stylesheet" href="CSS/Menu.css">
     <link rel="stylesheet" href="CSS/Login.css">
     <link rel="stylesheet" href="CSS/Footer.css">
     <style>
@@ -109,20 +110,55 @@
         <div id="form-content"></div>
     </div>
 
+    <footer>
+        <div class="contact-section">
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p>Have any questions? We'd love to hear from you.</p>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <img src="Photo/VisitUs.png" alt="Location">
+                        <div class="contact-item-text">
+                            <strong>Visit us</strong>
+                            <p>Poblacion 2, Vinzons Avenue,<br>Vinzons, CN</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <img src="Photo/Selpon.png" alt="Phone">
+                        <div class="contact-item-text">
+                            <strong>Call us</strong>
+                            <p>09380839641</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <img src="Photo/Facebook.png" alt="Facebook">
+                        <div class="contact-item-text">
+                            <strong>Connect</strong>
+                            <p><a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya,
+                                    VCN</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const formContent = document.getElementById('form-content');
         let isLoginMode = true;
+        // Generic monochrome SVG icons for password visibility
+        const iconShow = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+        const iconHide = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M1 1l22 22"/></svg>`;
 
         // --- TOGGLE PASSWORD VISIBILITY ---
         function togglePasswordVisibility(fieldId, button) {
             const field = document.getElementById(fieldId);
             if (field.type === 'password') {
                 field.type = 'text';
-                button.textContent = '🙈';
+                button.innerHTML = iconHide;
             } else {
                 field.type = 'password';
-                button.textContent = '👁️';
+                button.innerHTML = iconShow;
             }
         }
 
@@ -500,38 +536,6 @@
             }
         });
     </script>
-    <footer>
-        <div class="contact-section">
-            <div class="contact-info">
-                <h2>Contact Us</h2>
-                <p>Have any questions? We'd love to hear from you.</p>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <img src="Photo/VisitUs.png" alt="Location">
-                        <div class="contact-item-text">
-                            <strong>Visit us</strong>
-                            <p>Poblacion 2, Vinzons Avenue,<br>Vinzons, CN</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <img src="Photo/Selpon.png" alt="Phone">
-                        <div class="contact-item-text">
-                            <strong>Call us</strong>
-                            <p>09380839641</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <img src="Photo/Facebook.png" alt="Facebook">
-                        <div class="contact-item-text">
-                            <strong>Connect</strong>
-                            <p><a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya,
-                                    VCN</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>

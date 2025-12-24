@@ -6,242 +6,226 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Information</title>
     <link rel="stylesheet" href="CSS/userInfoDesign.css">
-    <link rel="stylesheet" href="CSS/Footer.css">
     <style>
 
     </style>
 </head>
-<header>
-    <div class="logo">
-        <img src="Photo/Tabeya Name.png" alt="Tabeya Logo">
-    </div>
-    <nav class="nav-links">
-        <a href="Home.html">HOME</a>
-        <a href="Menu.html">MENU</a>
-        <a href="CaterReservation.html">CATER RESERVATION</a>
-        <a href="Review.php">TESTIMONY</a>
-        <a href="About.html">ABOUT</a>
-    </nav>
-    <div class="header-right">
-        <a href="Login.html" id="account-link">PROFILE</a>
-        <div class="cart-icon" id="view-cart-btn">
-            🛒 <span class="cart-count" id="cart-item-count">0</span>
+
+<body>
+    <div class="background">
+        <img src="Photo/Reservation.jpg" alt="Background">
+        <h1 class="quote">YOUR<br>SATISFACTION<br>IS OUR<br>PASSION</h1>
+        <div class="rectangle-panel">
+            <h1 class="product-selection-label">CHOOSE YOUR PREFERRED PRODUCTS</h1>
+            <div class="continue-section">
+                <button class="continue-btn" onclick="initializeProductSelection()">Continue to Product
+                    Selection</button>
+            </div>
         </div>
     </div>
-</header>
 
-<div class="background">
-    <img src="Photo/Reservation.jpg" alt="Background">
-    <h1 class="quote">YOUR<br>SATISFACTION<br>IS OUR<br>PASSION</h1>
-    <div class="rectangle-panel">
-        <h1 class="product-selection-label">CHOOSE YOUR PREFERRED PRODUCTS</h1>
-        <div class="continue-section">
-            <button class="continue-btn" onclick="initializeProductSelection()">Continue to Product Selection</button>
+    <!-- Product Selection Panel -->
+    <div id="product-selection-panel">
+        <div class="product-category-nav">
+            <a href="#" data-category="PLATTER" class="active">Platter</a>
+            <a href="#" data-category="RICE MEAL">Rice Meal</a>
+            <a href="#" data-category="RICE">Rice</a>
+            <a href="#" data-category="NOODLES & PASTA">Bilao</a>
+            <a href="#" data-category="SPAGHETTI MEAL">Spaghetti Meals</a>
+            <a href="#" data-category="SNACKS">Snacks</a>
+            <a href="#" data-category="DESSERT">Dessert</a>
+            <a href="#" data-category="DRINKS & BEVERAGES">Drinks</a>
+        </div>
+        <div id="product-groups"></div>
+        <div class="panel-controls">
+            <div class="total-price-container">
+                Total: ₱<span id="total-price">0.00</span>
+            </div>
+            <div class="btn-group">
+                <button class="cancel-btn" onclick="closeProductSelection()">Cancel</button>
+                <button class="submit-btn" onclick="showOrderSummary()">Confirm Order</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Product Selection Panel -->
-<div id="product-selection-panel">
-    <div class="product-category-nav">
-        <a href="#" data-category="PLATTER" class="active">Platter</a>
-        <a href="#" data-category="RICE MEAL">Rice Meal</a>
-        <a href="#" data-category="RICE">Rice</a>
-        <a href="#" data-category="NOODLES & PASTA">Bilao</a>
-        <a href="#" data-category="SPAGHETTI MEAL">Spaghetti Meals</a>
-        <a href="#" data-category="SNACKS">Snacks</a>
-        <a href="#" data-category="DESSERT">Dessert</a>
-        <a href="#" data-category="DRINKS & BEVERAGES">Drinks</a>
-    </div>
-    <div id="product-groups"></div>
-    <div class="panel-controls">
-        <div class="total-price-container">
-            Total: ₱<span id="total-price">0.00</span>
-        </div>
-        <div class="btn-group">
-            <button class="cancel-btn" onclick="closeProductSelection()">Cancel</button>
-            <button class="submit-btn" onclick="showOrderSummary()">Confirm Order</button>
-        </div>
-    </div>
-</div>
+    <!-- Order Summary Overlay with Special Requests & Delivery Options -->
+    <div class="order-summary-overlay" id="order-summary-overlay">
+        <div class="order-summary-content">
+            <h2>Order Summary</h2>
+            <div class="order-items-list" id="order-items-list"></div>
 
-<!-- Order Summary Overlay with Special Requests & Delivery Options -->
-<div class="order-summary-overlay" id="order-summary-overlay">
-    <div class="order-summary-content">
-        <h2>Order Summary</h2>
-        <div class="order-items-list" id="order-items-list"></div>
+            <div class="order-divider"></div>
 
-        <div class="order-divider"></div>
+            <!-- Special Requests Section -->
+            <div class="special-requests-section">
+                <label for="special-requests-input">📝 Special Requests or Notes (Optional)</label>
+                <textarea id="special-requests-input"
+                    placeholder="E.g., No spicy, extra serving of sauce, specific arrangements..."></textarea>
+            </div>
 
-        <!-- Special Requests Section -->
-        <div class="special-requests-section">
-            <label for="special-requests-input">📝 Special Requests or Notes (Optional)</label>
-            <textarea id="special-requests-input"
-                placeholder="E.g., No spicy, extra serving of sauce, specific arrangements..."></textarea>
-        </div>
-
-        <!-- Delivery Options Section -->
-        <div class="delivery-section">
-            <label>🚚 Delivery Option *</label>
-            <div class="delivery-options">
-                <div class="delivery-option">
-                    <input type="radio" id="delivery-pickup" name="delivery-option" value="Pickup" checked>
-                    <label for="delivery-pickup">Pickup at Restaurant</label>
+            <!-- Delivery Options Section -->
+            <div class="delivery-section">
+                <label>🚚 Delivery Option *</label>
+                <div class="delivery-options">
+                    <div class="delivery-option">
+                        <input type="radio" id="delivery-pickup" name="delivery-option" value="Pickup" checked>
+                        <label for="delivery-pickup">Pickup at Restaurant</label>
+                    </div>
+                    <div class="delivery-option">
+                        <input type="radio" id="delivery-deliver" name="delivery-option" value="Delivery">
+                        <label for="delivery-deliver">Delivery to Address</label>
+                    </div>
                 </div>
-                <div class="delivery-option">
-                    <input type="radio" id="delivery-deliver" name="delivery-option" value="Delivery">
-                    <label for="delivery-deliver">Delivery to Address</label>
+                <div class="delivery-address-box" id="delivery-address-box">
+                    <input type="text" id="delivery-address-input" placeholder="Enter your full delivery address..."
+                        maxlength="500">
+                    <p>✓ Free Delivery available within Poblacion, Vinzons</p>
                 </div>
             </div>
-            <div class="delivery-address-box" id="delivery-address-box">
-                <input type="text" id="delivery-address-input" placeholder="Enter your full delivery address..."
-                    maxlength="500">
-                <p>✓ Free Delivery available within Poblacion, Vinzons</p>
+
+            <div class="order-divider"></div>
+
+            <div class="order-total">
+                <span>Total Amount:</span>
+                <span id="order-total-amount">₱0.00</span>
+            </div>
+
+            <div class="order-actions">
+                <button class="order-back-btn" onclick="closeOrderSummary()">Back to Products</button>
+                <button class="order-proceed-btn" onclick="showPaymentSection()">Proceed to Payment</button>
             </div>
         </div>
-
-        <div class="order-divider"></div>
-
-        <div class="order-total">
-            <span>Total Amount:</span>
-            <span id="order-total-amount">₱0.00</span>
-        </div>
-
-        <div class="order-actions">
-            <button class="order-back-btn" onclick="closeOrderSummary()">Back to Products</button>
-            <button class="order-proceed-btn" onclick="showPaymentSection()">Proceed to Payment</button>
-        </div>
     </div>
-</div>
 
-<!-- Payment Section -->
-<div class="payment-overlay" id="payment-overlay">
-    <div class="payment-content">
-        <div class="payment-header">
-            <h2>Payment Information</h2>
-            <p>Complete your reservation by uploading your GCash receipt</p>
-        </div>
-
-        <div class="payment-method-box">
-            <div class="method-icon">💳</div>
-            <h3>Payment Method: GCash</h3>
-            <p>Please transfer the amount to the registered GCash number and upload a screenshot of your receipt.</p>
-        </div>
-
-        <div class="payment-amount">
-            <p>Total Amount to Pay:</p>
-            <div class="amount" id="payment-total-amount">₱0.00</div>
-        </div>
-
-        <div class="upload-section">
-            <label for="gcash-receipt">Upload GCash Receipt Screenshot *</label>
-            <p>📌 Please upload a clear screenshot showing transaction details</p>
-            <div class="file-input-wrapper">
-                <input type="file" id="gcash-receipt" accept="image/*" onchange="handleFileUpload(event)">
-                <label for="gcash-receipt" class="file-input-label">
-                    <span>📷 Click to select or drag image here</span>
-                </label>
+    <!-- Payment Section -->
+    <div class="payment-overlay" id="payment-overlay">
+        <div class="payment-content">
+            <div class="payment-header">
+                <h2>Payment Information</h2>
+                <p>Complete your reservation by uploading your GCash receipt</p>
             </div>
-            <div class="file-name-display" id="file-name-display"></div>
-        </div>
 
-        <div class="payment-actions">
-            <button class="payment-cancel-btn" onclick="closePaymentSection()">Cancel</button>
-            <button class="payment-confirm-btn" id="confirm-payment-btn" onclick="submitPayment()" disabled>Confirm
-                Payment</button>
+            <div class="payment-method-box">
+                <div class="method-icon">💳</div>
+                <h3>Payment Method: GCash</h3>
+                <p>Please transfer the amount to the registered GCash number and upload a screenshot of your receipt.
+                </p>
+            </div>
+
+            <div class="payment-amount">
+                <p>Total Amount to Pay:</p>
+                <div class="amount" id="payment-total-amount">₱0.00</div>
+            </div>
+
+            <div class="upload-section">
+                <label for="gcash-receipt">Upload GCash Receipt Screenshot *</label>
+                <p>📌 Please upload a clear screenshot showing transaction details</p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="gcash-receipt" accept="image/*" onchange="handleFileUpload(event)">
+                    <label for="gcash-receipt" class="file-input-label">
+                        <span>📷 Click to select or drag image here</span>
+                    </label>
+                </div>
+                <div class="file-name-display" id="file-name-display"></div>
+            </div>
+
+            <div class="payment-actions">
+                <button class="payment-cancel-btn" onclick="closePaymentSection()">Cancel</button>
+                <button class="payment-confirm-btn" id="confirm-payment-btn" onclick="submitPayment()" disabled>Confirm
+                    Payment</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Success Message -->
-<div class="success-popup" id="success-popup">
-    <div class="success-popup-content">
-        <div class="success-popup-icon">✅</div>
-        <h2>Payment Received!</h2>
-        <p>Thank you for your order!</p>
-        <p>Our owner will contact you shortly to confirm your catering reservation.</p>
-        <button onclick="redirectToCaterReservation()">Done</button>
+    <!-- Success Message -->
+    <div class="success-popup" id="success-popup">
+        <div class="success-popup-content">
+            <div class="success-popup-icon">✅</div>
+            <h2>Payment Received!</h2>
+            <p>Thank you for your order!</p>
+            <p>Our owner will contact you shortly to confirm your catering reservation.</p>
+            <button onclick="redirectToCaterReservation()">Done</button>
+        </div>
     </div>
-</div>
 
-<script>
-    let allProducts = [];
-    let selectedProducts = {};
-    let totalAmount = 0;
-    let uploadedFile = null;
-    let specialRequests = '';
-    let deliveryOption = 'Pickup';
-    let deliveryAddress = '';
+    <script>
+        let allProducts = [];
+        let selectedProducts = {};
+        let totalAmount = 0;
+        let uploadedFile = null;
+        let specialRequests = '';
+        let deliveryOption = 'Pickup';
+        let deliveryAddress = '';
 
-    // ============================================================
-    // PRODUCT SELECTION
-    // ============================================================
+        // ============================================================
+        // PRODUCT SELECTION
+        // ============================================================
 
-    async function initializeProductSelection() {
-        try {
-            const productGroups = document.getElementById('product-groups');
-            productGroups.innerHTML = '<div class="loading-spinner"></div>';
-            document.getElementById('product-selection-panel').style.display = 'flex';
+        async function initializeProductSelection() {
+            try {
+                const productGroups = document.getElementById('product-groups');
+                productGroups.innerHTML = '<div class="loading-spinner"></div>';
+                document.getElementById('product-selection-panel').style.display = 'flex';
 
-            const response = await fetch('fetch_products.php');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const response = await fetch('fetch_products.php');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-            const data = await response.json();
-            if (!data.success) throw new Error(data.message || 'Failed to fetch products');
+                const data = await response.json();
+                if (!data.success) throw new Error(data.message || 'Failed to fetch products');
 
-            allProducts = data.products || [];
-            displayProducts(filterProductsByCategory('PLATTER'));
-            setupCategoryNavigation();
+                allProducts = data.products || [];
+                displayProducts(filterProductsByCategory('PLATTER'));
+                setupCategoryNavigation();
 
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to load products: ' + error.message);
-            closeProductSelection();
-        }
-    }
-
-    function filterProductsByCategory(categoryName) {
-        return allProducts.filter(p => p.Category && p.Category.toUpperCase() === categoryName.toUpperCase());
-    }
-
-    function displayProducts(products) {
-        const container = document.getElementById('product-groups');
-        container.innerHTML = '';
-
-        if (products.length === 0) {
-            container.innerHTML = '<p class="no-products">No products in this category.</p>';
-            return;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load products: ' + error.message);
+                closeProductSelection();
+            }
         }
 
-        products.forEach(product => {
-            const qty = selectedProducts[product.ProductID]?.quantity || 0;
-            const price = parseFloat(product.Price) || 0;
-            const name = product.ProductName || 'Product';
-            const desc = product.Description || 'Delicious dish from Tabeya';
-            const imagePath = product.Image && product.Image.trim() ? product.Image : 'Photo/default.jpg';
+        function filterProductsByCategory(categoryName) {
+            return allProducts.filter(p => p.Category && p.Category.toUpperCase() === categoryName.toUpperCase());
+        }
 
-            // Availability logic
-            const isAvailable = product.IngredientAvailable !== false;
-            const reason = product.AvailabilityReason || '';
-            const isLowStock = reason === 'Low stock';
+        function displayProducts(products) {
+            const container = document.getElementById('product-groups');
+            container.innerHTML = '';
 
-            let badgeClass = 'available';
-            let badgeIcon = '✓';        // green check
-            let badgeText = 'Available';
-            if (!isAvailable) {
-                badgeClass = 'unavailable';
-                badgeIcon = '✗';        // red cross
-                badgeText = 'Unavailable';
-            } else if (isLowStock) {
-                badgeClass = 'low-stock';
-                badgeIcon = 'Warning';     // warning sign
-                badgeText = 'Low Stock';
+            if (products.length === 0) {
+                container.innerHTML = '<p class="no-products">No products in this category.</p>';
+                return;
             }
 
-            const card = document.createElement('div');
-            card.className = `product-card ${!isAvailable ? 'unavailable' : ''}`;
+            products.forEach(product => {
+                const qty = selectedProducts[product.ProductID]?.quantity || 0;
+                const price = parseFloat(product.Price) || 0;
+                const name = product.ProductName || 'Product';
+                const desc = product.Description || 'Delicious dish from Tabeya';
+                const imagePath = product.Image && product.Image.trim() ? product.Image : 'Photo/default.jpg';
 
-            card.innerHTML = `
+                // Availability logic
+                const isAvailable = product.IngredientAvailable !== false;
+                const reason = product.AvailabilityReason || '';
+                const isLowStock = reason === 'Low stock';
+
+                let badgeClass = 'available';
+                let badgeIcon = '✓';        // green check
+                let badgeText = 'Available';
+                if (!isAvailable) {
+                    badgeClass = 'unavailable';
+                    badgeIcon = '✗';        // red cross
+                    badgeText = 'Unavailable';
+                } else if (isLowStock) {
+                    badgeClass = 'low-stock';
+                    badgeIcon = 'Warning';     // warning sign
+                    badgeText = 'Low Stock';
+                }
+
+                const card = document.createElement('div');
+                card.className = `product-card ${!isAvailable ? 'unavailable' : ''}`;
+
+                card.innerHTML = `
             <div class="product-image">
                 <img src="${imagePath}" alt="${name}" onerror="this.src='Photo/default.jpg'; this.style.border='3px solid red'">
                 <div class="availability-label ${badgeClass}">
@@ -262,77 +246,77 @@
                 </div>
             </div>
         `;
-            container.appendChild(card);
-        });
-
-        // Attach click events only to enabled buttons
-        container.querySelectorAll('.qty-btn:not([disabled])').forEach(btn => {
-            btn.addEventListener('click', handleQtyClick);
-        });
-    }
-    function handleQtyClick(e) {
-        const btn = e.currentTarget;
-        const id = btn.dataset.id;
-        const price = parseFloat(btn.dataset.price);
-        const name = decodeURIComponent(btn.dataset.name);
-        const isPlus = btn.classList.contains('plus');
-
-        const currentQty = selectedProducts[id]?.quantity || 0;
-        const newQty = isPlus ? currentQty + 1 : Math.max(0, currentQty - 1);
-
-        if (newQty > 0) {
-            selectedProducts[id] = { id, name, price, quantity: newQty };
-        } else {
-            delete selectedProducts[id];
-        }
-
-        const display = document.getElementById(`qty-${id}`);
-        if (display) {
-            display.textContent = newQty;
-            display.classList.toggle('has-qty', newQty > 0);
-        }
-
-        updateTotal();
-    }
-
-    function setupCategoryNavigation() {
-        document.querySelectorAll('.product-category-nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.product-category-nav a').forEach(a => a.classList.remove('active'));
-                link.classList.add('active');
-                displayProducts(filterProductsByCategory(link.dataset.category));
+                container.appendChild(card);
             });
-        });
-    }
 
-    function updateTotal() {
-        totalAmount = Object.values(selectedProducts).reduce((sum, p) => sum + (p.price * p.quantity), 0);
-        document.getElementById('total-price').textContent = totalAmount.toFixed(2);
-    }
+            // Attach click events only to enabled buttons
+            container.querySelectorAll('.qty-btn:not([disabled])').forEach(btn => {
+                btn.addEventListener('click', handleQtyClick);
+            });
+        }
+        function handleQtyClick(e) {
+            const btn = e.currentTarget;
+            const id = btn.dataset.id;
+            const price = parseFloat(btn.dataset.price);
+            const name = decodeURIComponent(btn.dataset.name);
+            const isPlus = btn.classList.contains('plus');
 
-    function closeProductSelection() {
-        document.getElementById('product-selection-panel').style.display = 'none';
-    }
+            const currentQty = selectedProducts[id]?.quantity || 0;
+            const newQty = isPlus ? currentQty + 1 : Math.max(0, currentQty - 1);
 
-    // ============================================================
-    // ORDER SUMMARY
-    // ============================================================
+            if (newQty > 0) {
+                selectedProducts[id] = { id, name, price, quantity: newQty };
+            } else {
+                delete selectedProducts[id];
+            }
 
-    function showOrderSummary() {
-        if (Object.keys(selectedProducts).length === 0) {
-            alert('Please select at least one product.');
-            return;
+            const display = document.getElementById(`qty-${id}`);
+            if (display) {
+                display.textContent = newQty;
+                display.classList.toggle('has-qty', newQty > 0);
+            }
+
+            updateTotal();
         }
 
-        const itemsList = document.getElementById('order-items-list');
-        itemsList.innerHTML = '';
+        function setupCategoryNavigation() {
+            document.querySelectorAll('.product-category-nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.product-category-nav a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                    displayProducts(filterProductsByCategory(link.dataset.category));
+                });
+            });
+        }
 
-        Object.values(selectedProducts).forEach(product => {
-            const subtotal = product.price * product.quantity;
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'order-item-row';
-            itemDiv.innerHTML = `
+        function updateTotal() {
+            totalAmount = Object.values(selectedProducts).reduce((sum, p) => sum + (p.price * p.quantity), 0);
+            document.getElementById('total-price').textContent = totalAmount.toFixed(2);
+        }
+
+        function closeProductSelection() {
+            document.getElementById('product-selection-panel').style.display = 'none';
+        }
+
+        // ============================================================
+        // ORDER SUMMARY
+        // ============================================================
+
+        function showOrderSummary() {
+            if (Object.keys(selectedProducts).length === 0) {
+                alert('Please select at least one product.');
+                return;
+            }
+
+            const itemsList = document.getElementById('order-items-list');
+            itemsList.innerHTML = '';
+
+            Object.values(selectedProducts).forEach(product => {
+                const subtotal = product.price * product.quantity;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'order-item-row';
+                itemDiv.innerHTML = `
                 <div class="order-item-info">
                     <h3>${product.name}</h3>
                     <p>@ ₱${product.price.toFixed(2)} each</p>
@@ -342,262 +326,210 @@
                     <span class="order-item-subtotal">₱${subtotal.toFixed(2)}</span>
                 </div>
             `;
-            itemsList.appendChild(itemDiv);
-        });
-
-        document.getElementById('order-total-amount').textContent = `₱${totalAmount.toFixed(2)}`;
-
-        // Setup delivery option listener
-        document.querySelectorAll('input[name="delivery-option"]').forEach(radio => {
-            radio.addEventListener('change', handleDeliveryOptionChange);
-        });
-
-        document.getElementById('order-summary-overlay').style.display = 'flex';
-    }
-
-    function handleDeliveryOptionChange(e) {
-        deliveryOption = e.target.value;
-        const addressBox = document.getElementById('delivery-address-box');
-
-        if (deliveryOption === 'Delivery') {
-            addressBox.classList.add('show');
-        } else {
-            addressBox.classList.remove('show');
-            deliveryAddress = '';
-        }
-    }
-
-    function closeOrderSummary() {
-        document.getElementById('order-summary-overlay').style.display = 'none';
-    }
-
-    // ============================================================
-    // PAYMENT SECTION
-    // ============================================================
-
-    function showPaymentSection() {
-        // Validate delivery option
-        if (deliveryOption === 'Delivery') {
-            deliveryAddress = document.getElementById('delivery-address-input').value.trim();
-            if (!deliveryAddress) {
-                alert('Please enter a delivery address.');
-                return;
-            }
-        }
-
-        // Get special requests
-        specialRequests = document.getElementById('special-requests-input').value.trim();
-
-        // Reset file upload
-        uploadedFile = null;
-        document.getElementById('gcash-receipt').value = '';
-        document.getElementById('file-name-display').textContent = '';
-        document.getElementById('file-name-display').classList.remove('show');
-        document.getElementById('confirm-payment-btn').disabled = true;
-        document.getElementById('confirm-payment-btn').classList.remove('active');
-        document.querySelector('.file-input-label').classList.remove('has-file');
-
-        document.getElementById('payment-total-amount').textContent = `₱${totalAmount.toFixed(2)}`;
-        document.getElementById('order-summary-overlay').style.display = 'none';
-        document.getElementById('payment-overlay').style.display = 'flex';
-    }
-
-    function closePaymentSection() {
-        document.getElementById('payment-overlay').style.display = 'none';
-    }
-
-    function handleFileUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        if (!validTypes.includes(file.type)) {
-            alert('Please upload a valid image file (JPG, PNG, GIF, or WebP).');
-            event.target.value = '';
-            return;
-        }
-
-        const maxSize = 5 * 1024 * 1024;
-        if (file.size > maxSize) {
-            alert('File size must be less than 5MB.');
-            event.target.value = '';
-            return;
-        }
-
-        uploadedFile = file;
-        document.getElementById('file-name-display').textContent = `✓ File selected: ${file.name}`;
-        document.getElementById('file-name-display').classList.add('show');
-        document.querySelector('.file-input-label').classList.add('has-file');
-
-        document.getElementById('confirm-payment-btn').disabled = false;
-        document.getElementById('confirm-payment-btn').classList.add('active');
-    }
-
-    async function submitPayment() {
-        if (!uploadedFile) {
-            alert('Please upload a GCash receipt screenshot.');
-            return;
-        }
-
-        if (Object.keys(selectedProducts).length === 0) {
-            alert('No products selected.');
-            return;
-        }
-
-        const btn = document.getElementById('confirm-payment-btn');
-        btn.textContent = 'Processing...';
-        btn.disabled = true;
-
-        try {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            if (!user) throw new Error('User not logged in');
-
-            const formData = sessionStorage.getItem('cateringFormData');
-            if (!formData) throw new Error('Catering form data not found');
-
-            const catering = JSON.parse(formData);
-            const items = Object.values(selectedProducts).map(p => ({
-                id: p.id,
-                name: p.name,
-                quantity: p.quantity,
-                price: p.price
-            }));
-
-            const body = new FormData();
-            body.append('customer_id', user.customerId || '');
-            body.append('customer_name', `${user.firstName || ''} ${user.lastName || ''}`);
-            body.append('customer_email', user.email || '');
-            body.append('customer_phone', user.contactNumber || '');
-            body.append('event_date', catering.date || '');
-            body.append('event_time', catering.time || '');
-            body.append('guests', catering.guests || '1');
-            body.append('event_type', catering.eventType || '');
-            body.append('total_price', totalAmount.toFixed(2));
-            body.append('selected_products', JSON.stringify(items));
-            body.append('gcash_receipt', uploadedFile);
-            body.append('payment_method', 'GCash');
-            body.append('special_requests', specialRequests);
-            body.append('delivery_option', deliveryOption);
-            body.append('delivery_address', deliveryAddress);
-
-            // ✅ FIXED: Simplified path logic
-            // Since userInfo.html is in /Tabeya/, use relative path
-            const phpPath = 'save_product_reservation.php';
-
-            console.log('Submitting to:', phpPath);
-
-            const res = await fetch(phpPath, {
-                method: 'POST',
-                body
-                // ❌ REMOVED: Don't send Content-Type header with FormData
-                // FormData automatically sets the correct boundary
+                itemsList.appendChild(itemDiv);
             });
 
-            // ✅ ADDED: Better error handling
-            if (!res.ok) {
-                const text = await res.text();
-                console.error('Server response:', text);
-                throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
-            }
+            document.getElementById('order-total-amount').textContent = `₱${totalAmount.toFixed(2)}`;
 
-            // ✅ ADDED: Check if response is JSON
-            const contentType = res.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                const text = await res.text();
-                console.error('Non-JSON response:', text);
-                throw new Error('Server returned invalid response format');
-            }
+            // Setup delivery option listener
+            document.querySelectorAll('input[name="delivery-option"]').forEach(radio => {
+                radio.addEventListener('change', handleDeliveryOptionChange);
+            });
 
-            const data = await res.json();
+            document.getElementById('order-summary-overlay').style.display = 'flex';
+        }
 
-            if (data.status === 'success') {
-                document.getElementById('payment-overlay').style.display = 'none';
-                document.getElementById('success-popup').style.display = 'flex';
+        function handleDeliveryOptionChange(e) {
+            deliveryOption = e.target.value;
+            const addressBox = document.getElementById('delivery-address-box');
+
+            if (deliveryOption === 'Delivery') {
+                addressBox.classList.add('show');
             } else {
-                throw new Error(data.message || 'Payment processing failed');
+                addressBox.classList.remove('show');
+                deliveryAddress = '';
             }
-        } catch (error) {
-            console.error('Payment error:', error);
-            alert('Error: ' + error.message);
-            btn.textContent = 'Confirm Payment';
-            btn.disabled = false;
         }
-    }
-    function redirectToCaterReservation() {
-        sessionStorage.removeItem('cateringFormData');
-        selectedProducts = {};
-        totalAmount = 0;
-        uploadedFile = null;
-        specialRequests = '';
-        deliveryOption = 'Pickup';
-        deliveryAddress = '';
-        window.location.href = 'CaterReservation.html';
-    }
 
-    function updateAccountLink() {
-        const accountLink = document.getElementById('account-link');
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-
-        if (user && accountLink) {
-            accountLink.textContent = user.firstName.toUpperCase();
-            accountLink.href = 'Profile.html';
-        } else if (accountLink) {
-            accountLink.textContent = 'PROFILE';
-            accountLink.href = 'Login.html';
+        function closeOrderSummary() {
+            document.getElementById('order-summary-overlay').style.display = 'none';
         }
-    }
 
-    function updateGlobalCartDisplay() {
-        const cart = JSON.parse(localStorage.getItem('tabeyaCart')) || [];
-        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-        document.getElementById('cart-item-count').textContent = count;
-    }
+        // ============================================================
+        // PAYMENT SECTION
+        // ============================================================
 
-    document.addEventListener('DOMContentLoaded', () => {
-        updateAccountLink();
-        updateGlobalCartDisplay();
-        if (!localStorage.getItem('currentUser')) {
-            alert('Please log in first.');
-            return window.location.href = 'Login.html';
+        function showPaymentSection() {
+            // Validate delivery option
+            if (deliveryOption === 'Delivery') {
+                deliveryAddress = document.getElementById('delivery-address-input').value.trim();
+                if (!deliveryAddress) {
+                    alert('Please enter a delivery address.');
+                    return;
+                }
+            }
+
+            // Get special requests
+            specialRequests = document.getElementById('special-requests-input').value.trim();
+
+            // Reset file upload
+            uploadedFile = null;
+            document.getElementById('gcash-receipt').value = '';
+            document.getElementById('file-name-display').textContent = '';
+            document.getElementById('file-name-display').classList.remove('show');
+            document.getElementById('confirm-payment-btn').disabled = true;
+            document.getElementById('confirm-payment-btn').classList.remove('active');
+            document.querySelector('.file-input-label').classList.remove('has-file');
+
+            document.getElementById('payment-total-amount').textContent = `₱${totalAmount.toFixed(2)}`;
+            document.getElementById('order-summary-overlay').style.display = 'none';
+            document.getElementById('payment-overlay').style.display = 'flex';
         }
-        if (!sessionStorage.getItem('cateringFormData')) {
-            alert('Please complete the catering form first.');
-            return window.location.href = 'CaterReservation.html';
+
+        function closePaymentSection() {
+            document.getElementById('payment-overlay').style.display = 'none';
         }
-    });
-</script>
-<footer>
-    <div class="contact-section">
-        <div class="contact-info">
-            <h2>Contact Us</h2>
-            <p>Have any questions? We'd love to hear from you.</p>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <img src="Photo/VisitUs.png" alt="Location">
-                    <div class="contact-item-text">
-                        <strong>Visit us</strong>
-                        <p>Poblacion 2, Vinzons Avenue,<br>Vinzons, CN</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <img src="Photo/Selpon.png" alt="Phone">
-                    <div class="contact-item-text">
-                        <strong>Call us</strong>
-                        <p>09380839641</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <img src="Photo/Facebook.png" alt="Facebook">
-                    <div class="contact-item-text">
-                        <strong>Connect</strong>
-                        <p><a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya,
-                                VCN</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please upload a valid image file (JPG, PNG, GIF, or WebP).');
+                event.target.value = '';
+                return;
+            }
+
+            const maxSize = 5 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('File size must be less than 5MB.');
+                event.target.value = '';
+                return;
+            }
+
+            uploadedFile = file;
+            document.getElementById('file-name-display').textContent = `✓ File selected: ${file.name}`;
+            document.getElementById('file-name-display').classList.add('show');
+            document.querySelector('.file-input-label').classList.add('has-file');
+
+            document.getElementById('confirm-payment-btn').disabled = false;
+            document.getElementById('confirm-payment-btn').classList.add('active');
+        }
+
+        async function submitPayment() {
+            if (!uploadedFile) {
+                alert('Please upload a GCash receipt screenshot.');
+                return;
+            }
+
+            if (Object.keys(selectedProducts).length === 0) {
+                alert('No products selected.');
+                return;
+            }
+
+            const btn = document.getElementById('confirm-payment-btn');
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (!user) throw new Error('User not logged in');
+
+                const formData = sessionStorage.getItem('cateringFormData');
+                if (!formData) throw new Error('Catering form data not found');
+
+                const catering = JSON.parse(formData);
+                const items = Object.values(selectedProducts).map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    quantity: p.quantity,
+                    price: p.price
+                }));
+
+                const body = new FormData();
+                body.append('customer_id', user.customerId || '');
+                body.append('customer_name', `${user.firstName || ''} ${user.lastName || ''}`);
+                body.append('customer_email', user.email || '');
+                body.append('customer_phone', user.contactNumber || '');
+                body.append('event_date', catering.date || '');
+                body.append('event_time', catering.time || '');
+                body.append('guests', catering.guests || '1');
+                body.append('event_type', catering.eventType || '');
+                body.append('total_price', totalAmount.toFixed(2));
+                body.append('selected_products', JSON.stringify(items));
+                body.append('gcash_receipt', uploadedFile);
+                body.append('payment_method', 'GCash');
+                body.append('special_requests', specialRequests);
+                body.append('delivery_option', deliveryOption);
+                body.append('delivery_address', deliveryAddress);
+
+                // ✅ FIXED: Simplified path logic
+                // Since userInfo.html is in /Tabeya/, use relative path
+                const phpPath = 'save_product_reservation.php';
+
+                console.log('Submitting to:', phpPath);
+
+                const res = await fetch(phpPath, {
+                    method: 'POST',
+                    body
+                    // ❌ REMOVED: Don't send Content-Type header with FormData
+                    // FormData automatically sets the correct boundary
+                });
+
+                // ✅ ADDED: Better error handling
+                if (!res.ok) {
+                    const text = await res.text();
+                    console.error('Server response:', text);
+                    throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
+                }
+
+                // ✅ ADDED: Check if response is JSON
+                const contentType = res.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await res.text();
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Server returned invalid response format');
+                }
+
+                const data = await res.json();
+
+                if (data.status === 'success') {
+                    document.getElementById('payment-overlay').style.display = 'none';
+                    document.getElementById('success-popup').style.display = 'flex';
+                } else {
+                    throw new Error(data.message || 'Payment processing failed');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Error: ' + error.message);
+                btn.textContent = 'Confirm Payment';
+                btn.disabled = false;
+            }
+        }
+        function redirectToCaterReservation() {
+            sessionStorage.removeItem('cateringFormData');
+            selectedProducts = {};
+            totalAmount = 0;
+            uploadedFile = null;
+            specialRequests = '';
+            deliveryOption = 'Pickup';
+            deliveryAddress = '';
+            window.location.href = 'CaterReservation.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('currentUser')) {
+                alert('Please log in first.');
+                return window.location.href = 'Login.html';
+            }
+            if (!sessionStorage.getItem('cateringFormData')) {
+                alert('Please complete the catering form first.');
+                return window.location.href = 'CaterReservation.html';
+            }
+        });
+
+    </script>
 </body>
 
 </html>

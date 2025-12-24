@@ -15,6 +15,7 @@ body {
   line-height: 1.6;
 }
 
+
 header {
   position: fixed;
   top: 0;
@@ -35,6 +36,7 @@ header .logo img {
   height: auto;
 }
 
+/* Center Navigation Links */
 nav.nav-links {
   position: absolute;
   left: 50%;
@@ -45,6 +47,7 @@ nav.nav-links {
   gap: 30px;
 }
 
+/* Header Right Section */
 .header-right {
   display: flex;
   align-items: center;
@@ -57,6 +60,7 @@ nav.nav-links {
   font-weight: bold;
   text-decoration: none;
   font-size: 13px;
+  /* Match updated nav size */
   transition: color 0.2s;
 }
 
@@ -67,12 +71,16 @@ nav.nav-links {
 nav a {
   color: white;
   font-size: 13px;
+  /* Smaller font size */
   font-weight: bold;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
 nav a:hover,
+nav a:active {
+  color: yellow;
+}
+
 nav a.active {
   color: yellow;
 }
@@ -83,12 +91,13 @@ nav a.active {
   margin-left: 20px;
   position: relative;
   color: white;
+  line-height: 1;
 }
 
 .cart-count {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: -5px;
+  right: -5px;
   background-color: yellow;
   color: #BC1823;
   border-radius: 50%;
@@ -96,6 +105,35 @@ nav a.active {
   font-size: 0.7em;
   font-weight: bold;
   line-height: 1;
+}
+
+.add-to-cart-btn {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: #a0141d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* =========================================== */
@@ -127,7 +165,7 @@ nav a.active {
 }
 
 .page-titles h1 {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;
   color: yellow;
   margin-bottom: 8px;
@@ -213,7 +251,7 @@ nav a.active {
 
 .bar-fill {
   height: 100%;
-  background: #1a202c;
+  background: #f6ad55;
   border-radius: 4px;
 }
 
@@ -248,7 +286,7 @@ nav a.active {
 
 .cat-bar-fill {
   height: 100%;
-  background: #1a202c;
+  background: #f6ad55;
 }
 
 .cat-score {

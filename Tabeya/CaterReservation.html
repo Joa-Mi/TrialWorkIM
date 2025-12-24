@@ -184,6 +184,9 @@
         const PROFILE_PAGE = 'Profile.html';
         let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
 
+        const USER_KEY = 'currentUser';
+
+
         /**
          * Checks if the user is logged in.
          * @returns {object|null} The user object if logged in, null otherwise.
@@ -196,6 +199,18 @@
                 return null;
             }
         }
+
+        // ====================================================================
+        // === IMMEDIATE AUTHENTICATION CHECK ===
+        // ====================================================================
+        // Redirect to login if user is not authenticated
+        (function () {
+            if (!getCurrentUser()) {
+                alert("Please log in first to access Catering Reservation.");
+                localStorage.setItem('redirectAfterLogin', CATER_RESERVATION_PAGE);
+                window.location.href = LOGIN_PAGE;
+            }
+        })();
 
         /**
          * Updates the PROFILE link in the header and pre-fills the form fields.
