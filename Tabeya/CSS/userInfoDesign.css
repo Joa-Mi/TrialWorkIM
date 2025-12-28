@@ -637,7 +637,12 @@ body.blur-background {
 }
 
 /* IMAGE CONTAINER */
+/* ============================================ */
+/* UPDATED PRODUCT IMAGE WITH OVERLAY BADGE */
+/* ============================================ */
+
 .product-image {
+    position: relative;
     width: 100%;
     height: 140px;
     background-color: #f8f8f8;
@@ -657,6 +662,172 @@ body.blur-background {
 .placeholder-icon {
     font-size: 48px;
     opacity: 0.5;
+}
+
+/* Availability Overlay - Centered on Image */
+.availability-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.availability-overlay span {
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for text */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.availability-overlay.low-stock span {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.availability-overlay.unavailable span {
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for unavailable if desired, or keep consistent */
+    color: #fff;
+    font-size: 20px;
+}
+
+/* Gray out unavailable products */
+.product-card.unavailable-card img {
+    filter: grayscale(100%) opacity(70%);
+}
+
+.product-card.unavailable-card .product-info {
+    opacity: 0.6;
+}
+
+/* ============================================ */
+/* EDITABLE QUANTITY INPUT */
+/* ============================================ */
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    line-height: 1;
+}
+
+.qty-btn.minus {
+    background-color: #eee;
+    color: #555;
+}
+
+.qty-btn.minus:hover:not(:disabled) {
+    background-color: #ddd;
+}
+
+.qty-btn.plus {
+    background-color: #bc1823;
+    color: white;
+}
+
+.qty-btn.plus:hover:not(:disabled) {
+    background-color: #a01520;
+}
+
+.qty-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.qty-btn:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+/* EDITABLE QUANTITY INPUT */
+.qty-input {
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.qty-input:focus {
+    border-color: #bc1823;
+    box-shadow: 0 0 0 3px rgba(188, 24, 35, 0.1);
+}
+
+.qty-input.has-qty {
+    border-color: #bc1823;
+    color: #bc1823;
+}
+
+/* Remove spinner arrows for number input */
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.qty-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ============================================ */
+/* RESPONSIVE ADJUSTMENTS */
+/* ============================================ */
+
+@media (max-width: 680px) {
+    .availability-label {
+        font-size: 10px;
+        padding: 4px 8px;
+        top: 8px;
+        right: 8px;
+    }
+
+    .availability-icon {
+        font-size: 11px;
+    }
+
+    .qty-input {
+        width: 50px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .qty-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
 }
 
 /* PRODUCT INFO */

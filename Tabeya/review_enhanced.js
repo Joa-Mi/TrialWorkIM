@@ -496,9 +496,9 @@ function renderCartModal() {
 
             itemsHtml += `
                 <div class="cart-item">
-                    <div class="cart-item-info"> 
+                    <div class="item-details">
                         <span class="cart-item-name">${item.name}</span>
-                        <span class="cart-item-price">₱${parseFloat(item.price).toFixed(2)} ea.</span>
+                        <span class="cart-item-price">₱${(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                     
                     <div class="cart-item-controls">
@@ -506,8 +506,6 @@ function renderCartModal() {
                         <span class="cart-item-quantity">${item.quantity}</span> 
                         <button onclick="window.updateCartItemQuantity('${safeId}', 1)">+</button>
                     </div>
-                    
-                    <span class="cart-item-subtotal">₱${itemTotal}</span> 
                 </div>
             `;
         });

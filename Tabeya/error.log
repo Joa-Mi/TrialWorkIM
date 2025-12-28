@@ -273,3 +273,5 @@ Stack trace:
 [24-Dec-2025 09:08:03 Europe/Berlin] SUCCESS: New reservation #18 created for customer 4750
 [26-Dec-2025 17:18:55 Europe/Berlin] SUCCESS: Reservation #11004 created with Payment #0 for customer 2
 [26-Dec-2025 17:21:21 Europe/Berlin] SUCCESS: Reservation #11005 created with Payment #0 for customer 2
+[28-Dec-2025 16:12:20 Europe/Berlin] SUCCESS: Reservation #11006 created with Payment #0 for customer 7
+[28-Dec-2025 16:38:55 Europe/Berlin] SUCCESS: Reservation #11007 created with Payment #0 for customer 7

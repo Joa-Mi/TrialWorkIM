@@ -395,7 +395,7 @@
         <nav class="nav-links">
             <a href="Home.html">HOME</a>
             <a href="Menu.html">MENU</a>
-            <a href="CaterReservation.html" >CATER RESERVATION</a>
+            <a href="CaterReservation.html">CATER RESERVATION</a>
             <a href="Review.php">TESTIMONY</a>
             <a href="About.html">ABOUT</a>
         </nav>
@@ -476,7 +476,8 @@
                         <img src="Photo/Facebook.png" alt="Facebook">
                         <div class="contact-item-text">
                             <strong>Connect</strong>
-                            <p><a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya, VCN</a></p>
+                            <p><a href="https://www.facebook.com/profile.php?id=100063540027038" target="_blank">Tabeya,
+                                    VCN</a></p>
                         </div>
                     </div>
                 </div>
@@ -735,48 +736,48 @@
         }
 
         function renderOrders(orders) {
-                const container = document.getElementById('order-list-container');
-                container.innerHTML = '';
-                
-                if (orders.length === 0) {
-                    container.innerHTML = `
+            const container = document.getElementById('order-list-container');
+            container.innerHTML = '';
+
+            if (orders.length === 0) {
+                container.innerHTML = `
                         <div class="empty-state">
                             <p>No orders found.</p>
                             <p>Start ordering from our <a href="Menu.html">MENU</a> today! 😊</p>
                         </div>
                     `;
-                    return;
+                return;
+            }
+
+            orders.forEach(order => {
+                const statusClass = getStatusClass(order.WebsiteStatus);
+                const statusText = order.WebsiteStatus || 'Pending';
+                const isPending = statusText.toLowerCase() === 'pending';
+
+                let itemsHtml = '';
+                let totalAmount = 0;
+
+                if (order.items) {
+                    try {
+                        const items = JSON.parse(order.items);
+                        itemsHtml = items.map(item => {
+                            const itemTotal = item.quantity * item.price;
+                            totalAmount += itemTotal;
+                            return `<li><span>${item.quantity}x ${item.name}</span> <span class="detail-value">₱${itemTotal.toFixed(2)}</span></li>`;
+                        }).join('');
+                    } catch (e) {
+                        itemsHtml = '<li>Unable to load items</li>';
+                    }
                 }
 
-                orders.forEach(order => {
-                    const statusClass = getStatusClass(order.WebsiteStatus);
-                    const statusText = order.WebsiteStatus || 'Pending';
-                    const isPending = statusText.toLowerCase() === 'pending';
+                // Fallback to TotalAmount if items calculation fails
+                if (totalAmount === 0 && order.TotalAmount) {
+                    totalAmount = parseFloat(order.TotalAmount);
+                }
 
-                    let itemsHtml = '';
-                    let totalAmount = 0;
-                    
-                    if (order.items) {
-                        try {
-                            const items = JSON.parse(order.items);
-                            itemsHtml = items.map(item => {
-                                const itemTotal = item.quantity * item.price;
-                                totalAmount += itemTotal;
-                                return `<li><span>${item.quantity}x ${item.name}</span> <span class="detail-value">₱${itemTotal.toFixed(2)}</span></li>`;
-                            }).join('');
-                        } catch (e) {
-                            itemsHtml = '<li>Unable to load items</li>';
-                        }
-                    }
-                    
-                    // Fallback to TotalAmount if items calculation fails
-                    if (totalAmount === 0 && order.TotalAmount) {
-                        totalAmount = parseFloat(order.TotalAmount);
-                    }
-
-                    const card = document.createElement('div');
-                    card.className = 'order-card';
-                    card.innerHTML = `
+                const card = document.createElement('div');
+                card.className = 'order-card';
+                card.innerHTML = `
                         <div class="card-header">
                             <h4>Order #${order.OrderID}</h4>
                             <span class="status-badge ${statusClass}">${statusText}</span>
@@ -801,9 +802,9 @@
                             ${isPending ? '✕ Cancel Order' : 'Cannot Cancel'}
                         </button>
                     `;
-                    container.appendChild(card);
-                });
-            }
+                container.appendChild(card);
+            });
+        }
 
         async function fetchReservations(customerId) {
             try {
@@ -848,7 +849,7 @@
 
                 let itemsHtml = '';
                 let totalAmount = 0;
-                
+
                 if (reservation.items) {
                     try {
                         const items = JSON.parse(reservation.items);
@@ -861,7 +862,7 @@
                         itemsHtml = '<li>Unable to load items</li>';
                     }
                 }
-                
+
                 // Fallback to TotalPrice if items calculation fails
                 if (totalAmount === 0 && reservation.TotalPrice) {
                     totalAmount = parseFloat(reservation.TotalPrice);
@@ -903,7 +904,7 @@
                 container.appendChild(card);
             });
         }
-                function getStatusClass(status) {
+        function getStatusClass(status) {
             if (!status) return 'status-pending';
             const statusLower = status.toLowerCase();
             if (statusLower === 'confirmed') return 'status-confirmed';

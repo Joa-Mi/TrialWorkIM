@@ -193,7 +193,9 @@
             // Calculate average rating display (star rating * 1.0 for display)
             const ratingDisplay = starRating > 0 ? `(${starRating}.0)` : '(0.0)';
             starsHtml += `<span class="rating-number">${ratingDisplay}</span>`;
-            starsHtml += '</div>';
+
+            // Add Total Orders Display
+            starsHtml += `</div><div class="order-count-label">${orderCount} Orders</div>`;
 
             return starsHtml;
         }
@@ -238,6 +240,7 @@
                     id: itemDetails.id,
                     name: itemDetails.name,
                     price: itemDetails.price,
+                    image: itemDetails.image, // Save image path
                     quantity: 1,
                     stockStatus: itemDetails.stockStatus
                 });
@@ -255,10 +258,36 @@
 
             const itemIndex = cart.findIndex(item => String(item.id) === String(itemId));
             if (itemIndex > -1) {
-                cart[itemIndex].quantity += change;
-                if (cart[itemIndex].quantity <= 0) {
-                    cart.splice(itemIndex, 1);
+                let newQuantity = cart[itemIndex].quantity + change;
+                if (newQuantity <= 0) {
+                    if (confirm("Remove this item from cart?")) {
+                        cart.splice(itemIndex, 1);
+                    } else {
+                        return; // Do nothing if canceled
+                    }
+                } else {
+                    cart[itemIndex].quantity = newQuantity;
                 }
+                saveCart();
+            }
+        }
+
+        window.setCartItemQuantity = function (itemId, newQuantity) {
+            if (!checkUserLoginStatus()) {
+                alert("You must log in to modify the cart.");
+                renderCartModal(); // Reset view
+                return;
+            }
+
+            const itemIndex = cart.findIndex(item => String(item.id) === String(itemId));
+            if (itemIndex > -1) {
+                let parsedQty = parseInt(newQuantity);
+
+                if (isNaN(parsedQty) || parsedQty < 1) {
+                    parsedQty = 1; // Default to 1 if invalid
+                }
+
+                cart[itemIndex].quantity = parsedQty;
                 saveCart();
             }
         }
@@ -297,18 +326,25 @@
 
                     itemsHtml += `
                         <div class="cart-item">
+                            <div class="cart-item-image-container">
+                                <img src="${item.image || 'Photo/default-image.jpg'}" alt="${item.name}" class="cart-item-image" onerror="this.src='Photo/default-image.jpg'">
+                            </div>
                             <div class="cart-item-info"> 
                                 <span class="cart-item-name">${item.name} ${stockWarning}</span>
-                                <span class="cart-item-price">₱${parseFloat(item.price).toFixed(2)} ea.</span>
+                                <span class="cart-item-price">₱${parseFloat(item.price).toFixed(2)}</span>
                             </div>
                             
                             <div class="cart-item-controls">
                                 <button onclick="window.updateCartItemQuantity('${safeId}', -1)">-</button>
-                                <span class="cart-item-quantity">${item.quantity}</span> 
+                                <input type="number" 
+                                       class="cart-item-quantity-input" 
+                                       value="${item.quantity}" 
+                                       min="1" 
+                                       onchange="window.setCartItemQuantity('${safeId}', this.value)"
+                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+                                >
                                 <button onclick="window.updateCartItemQuantity('${safeId}', 1)">+</button>
                             </div>
-                            
-                            <span class="cart-item-subtotal">₱${itemTotal}</span> 
                         </div>
                     `;
                 });
@@ -394,6 +430,7 @@
                                 data-id="${id}" 
                                 data-name="${name}" 
                                 data-price="${rawPrice}"
+                                data-image="${imagePath}"
                                 data-available="${isAvailable}"
                                 data-stock-status="${stockStatus}"
                                 ${buttonDisabled}>
@@ -477,6 +514,7 @@
                                     data-id="${id}" 
                                     data-name="${name}" 
                                     data-price="${rawPrice}"
+                                    data-image="${imagePath}"
                                     data-available="${isAvailable}"
                                     data-stock-status="${stockStatus}"
                                     ${buttonDisabled}>
@@ -519,10 +557,11 @@
                     const id = e.target.getAttribute('data-id');
                     const name = e.target.getAttribute('data-name');
                     const price = parseFloat(e.target.getAttribute('data-price'));
+                    const image = e.target.getAttribute('data-image');
                     const available = e.target.getAttribute('data-available') === 'true';
                     const stockStatus = e.target.getAttribute('data-stock-status');
 
-                    addToCart({ id, name, price, available, stockStatus });
+                    addToCart({ id, name, price, image, available, stockStatus });
                 });
             });
         }
@@ -533,10 +572,11 @@
                     const id = e.target.getAttribute('data-id');
                     const name = e.target.getAttribute('data-name');
                     const price = parseFloat(e.target.getAttribute('data-price'));
+                    const image = e.target.getAttribute('data-image');
                     const available = e.target.getAttribute('data-available') === 'true';
                     const stockStatus = e.target.getAttribute('data-stock-status');
 
-                    addToCart({ id, name, price, available, stockStatus });
+                    addToCart({ id, name, price, image, available, stockStatus });
                 });
             });
         }

@@ -270,18 +270,19 @@
                 const safeId = String(item.id).replace(/'/g, "\\'");
 
                 cartHtml += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <span class="cart-item-name">${item.name}</span>
-                            <span class="cart-item-price">₱${parseFloat(item.price).toFixed(2)} ea.</span>
+                cartHtml += `
+                    < div class="cart-item" >
+                        <div class="item-details">
+                            <span class="item-name">${item.name}</span>
+                            <span class="item-price">₱${(item.price * item.quantity).toFixed(2)}</span>
                         </div>
                         <div class="cart-item-controls">
                             <button onclick="changeQuantity('${safeId}', -1)">-</button>
                             <span class="cart-item-quantity">${item.quantity}</span>
                             <button onclick="changeQuantity('${safeId}', 1)">+</button>
                         </div>
-                        <span class="cart-item-subtotal">₱${itemTotal.toFixed(2)}</span>
-                    </div>
+                    </div >
+                    `;
                 `;
             });
 
