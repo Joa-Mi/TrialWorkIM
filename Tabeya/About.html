@@ -59,7 +59,7 @@
                     <!-- Google Maps Embed with Tabeya Restaurant Location -->
                     <div class="map-wrapper">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.3775549994066!2d122.90395349264149!3d14.17265100702453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3398b100583b2957%3A0x165ac36a6dc4ef46!2sReichan%20Tabeya!5e0!3m2!1sen!2sph!4v1763915175886!5m2!1sen!2sph"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.3770864619264!2d122.90591387316357!3d14.172678487414052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3398b100583b2957%3A0x165ac36a6dc4ef46!2sReichan%20Tabeya!5e0!3m2!1sen!2sph!4v1767371459986!5m2!1sen!2sph"
                             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
@@ -71,8 +71,8 @@
                             <span>Get Directions from My Location</span>
                         </button>
 
-                        <a href="https://www.google.com/maps/place/Tabeya+Restaurant/@14.176114125131747,122.90052770054795,15z"
-                            target="_blank" class="map-btn secondary">
+                        <a href="https://www.google.com/maps?cid=1610814678613946182" target="_blank"
+                            class="map-btn secondary">
                             <span>🗺️</span>
                             <span>View in Google Maps</span>
                         </a>
@@ -122,7 +122,7 @@
         // === GOOGLE MAPS DIRECTIONS FUNCTIONALITY ===
         // ====================================================================
 
-        const TABEYA_COORDS = '14.176114125131747,122.90052770054795';
+        const TABEYA_DESTINATION = 'Reichan Tabeya, 40 Vinzons Ave, Vinzons, Camarines Norte';
 
         /**
          * Get directions from user's current location to Tabeya Restaurant
@@ -130,78 +130,24 @@
          */
         function getDirectionsFromMyLocation() {
             const btn = document.getElementById('get-directions-btn');
-            const user = getCurrentUser();
-
-            // Check if geolocation is supported
-            if (!navigator.geolocation) {
-                alert('Sorry, your browser does not support location services. Please use the "View in Google Maps" button instead.');
-                return;
-            }
 
             // Disable button and show loading state
             btn.disabled = true;
-            btn.innerHTML = '<span>🔄</span><span>Getting your location...</span>';
+            btn.innerHTML = '<span>🔄</span><span>Opening Maps...</span>';
 
-            // Get user's current position
-            navigator.geolocation.getCurrentPosition(
-                // Success callback
-                function (position) {
-                    const userLat = position.coords.latitude;
-                    const userLng = position.coords.longitude;
+            // Use Google Maps Directions API
+            // Omitting 'origin' defaults to "Current Location" in Google Maps, 
+            // which often has better fallback/correction mechanisms than browser Geolocation API.
+            // It also allows the user to easily type a different starting point if the detection is wrong.
+            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(TABEYA_DESTINATION)}`;
 
-                    // Log user info if available (for email-based location context)
-                    if (user && user.email) {
-                        const emailDomain = user.email.split('@')[1];
-                        console.log('User logged in:', user.name);
-                        console.log('Email domain:', emailDomain);
-                        console.log('GPS Location:', userLat, userLng);
-                    }
+            setTimeout(() => {
+                window.open(mapsUrl, '_blank');
 
-                    // Open Google Maps with directions from user location to restaurant
-                    const mapsUrl = `https://www.google.com/maps/dir/${userLat},${userLng}/${TABEYA_COORDS}`;
-                    window.open(mapsUrl, '_blank');
-
-                    // Reset button
-                    btn.disabled = false;
-                    btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
-                },
-                // Error callback
-                function (error) {
-                    let errorMessage = 'Unable to get your location. ';
-
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Please allow location access in your browser settings.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'Location information is unavailable.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'Location request timed out.';
-                            break;
-                        default:
-                            errorMessage += 'An unknown error occurred.';
-                    }
-
-                    // If user is logged in, mention their email context
-                    if (user && user.email) {
-                        const emailDomain = user.email.split('@')[1];
-                        console.log('Location error for user with email domain:', emailDomain);
-                    }
-
-                    alert(errorMessage + '\n\nYou can still use the "View in Google Maps" button to get directions manually.');
-
-                    // Reset button
-                    btn.disabled = false;
-                    btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
-                },
-                // Options
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
-                }
-            );
+                // Reset button
+                btn.disabled = false;
+                btn.innerHTML = '<span>🧭</span><span>Get Directions from My Location</span>';
+            }, 800);
         }
 
         // ====================================================================
